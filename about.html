@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>About Us | Legacy Executive Aviation</title>
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+
+    <style>
+      :root {
+        --gold: #f5b81b;
+        --blue: #0a4b6e;
+        --light: #f5f7fc;
+      }
+      body {
+        margin: 0;
+        font-family: Inter, sans-serif;
+        background: var(--light);
+      }
+
+      /* HEADER */
+      header {
+        background: white;
+        padding: 15px 0;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+      }
+      .container {
+        width: 90%;
+        margin: auto;
+      }
+      .navbar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+      .logo {
+        font-weight: 800;
+        color: var(--blue);
+      }
+      .nav a {
+        margin-left: 20px;
+        text-decoration: none;
+        font-weight: 600;
+        color: #333;
+      }
+      .nav a:hover {
+        color: var(--gold);
+      }
+
+      /* HERO */
+      .hero {
+        background: linear-gradient(#fff, #fef9e6);
+        padding: 80px 20px;
+        text-align: center;
+      }
+      .hero h1 {
+        color: var(--blue);
+        font-size: 42px;
+      }
+      .hero p {
+        max-width: 700px;
+        margin: auto;
+      }
+
+      /* SECTIONS */
+      .section {
+        padding: 60px 20px;
+      }
+      .card {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      }
+
+      /* GRID */
+      .grid {
+        display: flex;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
+      .grid .box {
+        flex: 1;
+        min-width: 250px;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        border-left: 5px solid var(--gold);
+      }
+
+      /* VALUES */
+      .values {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+      .value {
+        flex: 1;
+        min-width: 200px;
+        background: white;
+        padding: 25px;
+        border-radius: 15px;
+        text-align: center;
+      }
+      .value i {
+        font-size: 30px;
+        color: var(--blue);
+        margin-bottom: 10px;
+      }
+
+      /* FOOTER */
+      footer {
+        background: #06344d;
+        color: white;
+        text-align: center;
+        padding: 40px;
+        margin-top: 40px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="container navbar">
+        <div class="logo">LEGACY</div>
+        <div class="nav">
+          <a href="index.html">Home</a>
+          <a href="about.html">About</a>
+          <a href="services.html">Services</a>
+          <a href="contact.html">Contact</a>
+        </div>
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>About Legacy Executive Aviation</h1>
+      <p>Transforming aviation accessibility across Southern Africa</p>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="card">
+          <p>
+            <strong>Legacy Executive Aviation (LEA)</strong> is strategically
+            positioned to transform aviation across the SADC region. We are
+            committed to closing the aviation accessibility gap in Southern
+            Africa by delivering safe, efficient, and premium air mobility
+            solutions across private, executive, and commercial aviation
+            sectors.
+          </p>
+
+          <p>
+            With immediate access to a fleet of over 100 aircraft and a
+            leadership team bringing more than 30 years of aviation
+            experience—including pilots with over 15,000 flight hours—LEA
+            combines operational strength with deep technical expertise.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container grid">
+        <div class="box">
+          <h2>Mission</h2>
+          <p>
+            To deliver reliable, world-class aviation services that meet the
+            evolving mobility needs of businesses, governments, investors, and
+            communities across the SADC region.
+          </p>
+        </div>
+
+        <div class="box">
+          <h2>Vision</h2>
+          <p>
+            To become the benchmark aviation solutions provider in Southern
+            Africa, recognized for safety, operational excellence, and seamless
+            connectivity.
+          </p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <h2>Core Values</h2>
+
+        <div class="values">
+          <div class="value">
+            <i class="fas fa-shield-alt"></i>
+            <h4>Safety</h4>
+            <p>Uncompromising operational standards</p>
+          </div>
+
+          <div class="value">
+            <i class="fas fa-star"></i>
+            <h4>Excellence</h4>
+            <p>Premium service at every touchpoint</p>
+          </div>
+
+          <div class="value">
+            <i class="fas fa-handshake"></i>
+            <h4>Integrity</h4>
+            <p>Transparency and professionalism</p>
+          </div>
+
+          <div class="value">
+            <i class="fas fa-lightbulb"></i>
+            <h4>Innovation</h4>
+            <p>Adaptive solutions for a dynamic region</p>
+          </div>
+
+          <div class="value">
+            <i class="fas fa-users"></i>
+            <h4>Partnership</h4>
+            <p>Building long-term collaborations</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>© 2026 Legacy Executive Aviation — “Legacy is in the air”</p>
+    </footer>
+  </body>
+</html>
