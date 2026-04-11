@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Why Choose LEA | Legacy Executive Aviation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fc;
+            color: #1a2c3e;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --gold-yellow: #f5b81b;
+            --deep-yellow: #e6a100;
+            --silver-light: #eef2f5;
+            --silver-mid: #cbd5e1;
+            --silver-dark: #94a3b8;
+            --aviation-blue: #0a4b6e;
+            --aviation-deep: #06344d;
+            --accent-blue: #1e7aa5;
+            --white: #ffffff;
+            --dark-slate: #1e293b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loader Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 16px;
+        }
+
+        .dot-loader {
+            width: 18px;
+            height: 18px;
+            background-color: var(--gold-yellow);
+            border-radius: 50%;
+            animation: pulseLoader 1.2s infinite ease-in-out;
+        }
+
+        .dot-loader:nth-child(1) { animation-delay: 0s; }
+        .dot-loader:nth-child(2) { animation-delay: 0.2s; }
+        .dot-loader:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulseLoader {
+            0%, 60%, 100% { transform: scale(0.6); opacity: 0.4; }
+            30% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Fade-in animation on scroll */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .fade-up.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--aviation-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--gold-yellow);
+            border-radius: 4px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            font-weight: 600;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-yellow) 0%, #f39c12 100%);
+            color: var(--aviation-deep);
+            box-shadow: 0 4px 12px rgba(245,184,27,0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #f5c542 0%, #e67e22 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--aviation-blue);
+            color: var(--aviation-blue);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(120deg, var(--aviation-blue), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(10,75,110,0.2);
+        }
+
+        /* Header & Navigation - Modern Centered Style */
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-circle-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(10, 75, 110, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid var(--gold-yellow);
+        }
+
+        .logo-circle-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: var(--aviation-blue);
+        }
+
+        /* Centered Navigation Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            transition: all 0.2s;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 8px 4px;
+            color: var(--dark-slate);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+
+        /* Hover Grow + Highlight Effect */
+        .nav-link:hover {
+            color: var(--gold-yellow);
+            transform: scale(1.08);
+            text-shadow: 0 2px 5px rgba(245, 184, 27, 0.2);
+        }
+
+        /* Active link styling with grow and golden accent */
+        .nav-link.active {
+            color: var(--aviation-blue);
+            font-weight: 800;
+            position: relative;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-yellow), #f7c948);
+            border-radius: 6px;
+            animation: glowPulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 0.6; width: 80%; left: 10%; }
+            50% { opacity: 1; width: 100%; left: 0%; }
+            100% { opacity: 0.6; width: 80%; left: 10%; }
+        }
+
+        /* Active link also gets subtle scale on desktop */
+        .nav-link.active:hover {
+            transform: scale(1.05);
+            color: var(--aviation-deep);
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            background: var(--silver-light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-left: 8px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 30px;
+            transition: 0.2s;
+            color: var(--aviation-blue);
+        }
+
+        .lang-btn.active {
+            background: var(--gold-yellow);
+            color: var(--aviation-deep);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--aviation-blue);
+            transition: transform 0.2s;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            color: var(--gold-yellow);
+        }
+
+        /* Hero & Cards */
+        .hero {
+            background: radial-gradient(circle at 10% 20%, rgba(255,245,210,0.9), rgba(230,242,255,0.95)), linear-gradient(125deg, #fff3e0, #e0f0ff);
+            background-blend-mode: overlay;
+            padding: 80px 0 70px;
+            position: relative;
+            border-bottom: 1px solid rgba(245,184,27,0.3);
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-badge {
+            background: var(--gold-yellow);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--aviation-deep);
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--aviation-blue);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--gold-yellow);
+            margin: 16px 0 20px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #334155;
+            max-width: 90%;
+            margin-top: 12px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            border-left: 8px solid var(--gold-yellow);
+            box-shadow: 0 18px 30px rgba(0,0,0,0.08);
+            transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--aviation-blue);
+            box-shadow: 0 24px 36px rgba(0, 0, 0, 0.12);
+        }
+
+        .benefit-icon {
+            font-size: 2.8rem;
+            color: var(--aviation-blue);
+            margin-bottom: 18px;
+        }
+
+        .benefit-card h3 {
+            margin-bottom: 14px;
+            font-size: 1.7rem;
+            color: var(--aviation-blue);
+        }
+
+        .benefit-card p {
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.75;
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+        }
+
+        .page-footer {
+            background: var(--aviation-deep);
+            color: #cbd5e6;
+            padding: 48px 0 28px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .footer-contact-item i {
+            width: 24px;
+            font-size: 1.2rem;
+            color: var(--gold-yellow);
+        }
+
+        .footer-links a {
+            color: var(--silver-mid);
+            text-decoration: none;
+            margin-right: 24px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-yellow);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.8rem;
+            border-top: 1px solid #1f5a7a;
+            padding-top: 24px;
+        }
+
+        /* Responsive Navigation */
+        @media (max-width: 1024px) {
+            .nav-links {
+                gap: 18px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 {
+                font-size: 2.5rem;
+            }
+            .hero-tagline {
+                font-size: 1.2rem;
+            }
+            .hero-visual img {
+                height: 320px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 22px;
+                padding: 28px 16px;
+                background: white;
+                border-radius: 28px;
+                margin-top: 12px;
+                box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+                text-align: center;
+                align-items: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 70px;
+            }
+
+            .section-title {
+                text-align: center;
+                display: block;
+            }
+
+            .lang-switch {
+                margin-left: 0;
+                order: 2;
+                margin-top: 8px;
+                justify-content: center;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-visual img {
+                height: 260px;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-contact-item {
+                justify-content: center;
+            }
+
+            /* Mobile active link underline adjustment */
+            .nav-link.active::after {
+                bottom: -2px;
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-visual img {
+                height: 220px;
+            }
+        }
+
+        /* Button group alignment */
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+    </style>
+</head>
+<body>
+<div class="loader-wrapper" id="loaderWrapper">
+    <div class="loader-dots">
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+    </div>
+</div>
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="img/logo.jpg" alt="Legacy Executive Aviation" class="logo-circle-img" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=LEA';">
+                <span class="logo-text">LEGACY</span>
+            </div>
+            <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span data-key="nav_home">Home</span></a>
+                <a href="about.html" class="nav-link"><i class="fas fa-info-circle"></i> <span data-key="nav_knowus">Know Us</span></a>
+                <a href="mission.html" class="nav-link"><i class="fas fa-bullseye"></i> <span data-key="nav_mvv">Mission, Vision & Values</span></a>
+                <a href="services.html" class="nav-link"><i class="fas fa-concierge-bell"></i> <span data-key="nav_services">Services</span></a>
+                <a href="why.html" class="nav-link active"><i class="fas fa-globe"></i> <span data-key="nav_whylea">Why Choose LEA</span></a>
+                <a href="partnerships.html" class="nav-link"><i class="fas fa-handshake"></i> <span data-key="nav_partnerships">Partnerships</span></a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> <span data-key="nav_contact">Contact</span></a>
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="pt">PT</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+<main>
+    <section class="hero fade-up">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-globe"></i> <span data-key="hero_badge">Why Choose LEA</span></div>
+                <h1><span data-key="hero_title">Proven aviation leadership for Southern Africa.</span></h1>
+                <div class="hero-tagline"><span data-key="hero_tagline">A trusted partner committed to safety, expertise, and tailored service.</span></div>
+                <p class="hero-desc"><span data-key="hero_desc">Legacy Executive Aviation combines deep regional experience, an extensive aircraft network, and world-class standards to serve businesses, governments, and communities.</span></p>
+                <div class="btn-group">
+                    <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> <span data-key="btn_home">Return Home</span></a>
+                    <a href="services.html" class="btn btn-primary"><i class="fas fa-concierge-bell"></i> <span data-key="btn_services">Explore Services</span></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="img/1.jpg" alt="Why Choose LEA" onerror="this.src='https://placehold.co/800x500?text=Why+Choose+LEA';">
+            </div>
+        </div>
+    </section>
+    <section class="fade-up">
+        <div class="container">
+            <div class="section-title">The Legacy Advantage</div>
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-network-wired"></i></div>
+                    <h3>Extensive aircraft network</h3>
+                    <p>Access a broad fleet capable of serving private, executive, commercial, and cargo missions across the region.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-user-check"></i></div>
+                    <h3>Experienced aviation professionals</h3>
+                    <p>Leadership and crews with proven track records, deep operational knowledge, and an unwavering focus on quality.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div>
+                    <h3>Regional expertise in SADC</h3>
+                    <p>Local market understanding and air mobility solutions designed specifically for Southern African routes and regulations.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-shield-alt"></i></div>
+                    <h3>Commitment to safety and excellence</h3>
+                    <p>Every flight and operation adheres to the highest standards of safety, compliance, and premium service delivery.</p>
+                </div>
+                <div class="benefit-card">
+                    <div class="benefit-icon"><i class="fas fa-handshake"></i></div>
+                    <h3>Tailored aviation solutions</h3>
+                    <p>Customized mobility plans that respond to the unique needs of clients, projects, and strategic partners.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+<footer class="page-footer fade-up">
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <img src="img/logo.jpg" alt="LEA" style="height: 52px; width: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-yellow);" onerror="this.src='https://placehold.co/100x100?text=LEA';">
+                <p style="margin-top: 12px;"><i class="fas fa-building"></i> Legacy Executive Aviation<br>Elevating Southern Africa</p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> Know Us</a>
+                <a href="mission.html"><i class="fas fa-bullseye"></i> Mission, Vision & Values</a>
+                <a href="services.html"><i class="fas fa-concierge-bell"></i> Services</a>
+                <a href="why.html"><i class="fas fa-globe"></i> Why Choose LEA</a>
+            </div>
+            <div>
+                <div class="footer-contact-item"><i class="fas fa-envelope"></i> <span>fly@legacyaviation.aero</span></div>
+                <div class="footer-contact-item"><i class="fas fa-phone-alt"></i> <span>+264 61 123 456</span></div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> <span>Windhoek, Namibia / SADC Hub</span></div>
+            </div>
+        </div>
+        <div class="copyright"><p><i class="far fa-copyright"></i> 2026 Legacy Executive Aviation — “Legacy is in the air” — All rights reserved</p></div>
+    </div>
+</footer>
+
+<script>
+    // Loader hide
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('loaderWrapper');
+        if(loader) {
+            loader.classList.add('hidden');
+            setTimeout(() => { loader.style.display = 'none'; }, 600);
+        }
+        // Trigger initial reveal for elements visible on load
+        revealFadeElements();
+        initLanguageSwitcher();
+    });
+
+    // Mobile menu toggle
+    const toggleBtn = document.getElementById('mobileMenuBtn');
+    const navLinksDiv = document.getElementById('navLinks');
+    if(toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinksDiv.classList.toggle('active');
+            // Optional: change icon style
+            const icon = toggleBtn.querySelector('i');
+            if(navLinksDiv.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // Close mobile menu when clicking on any nav-link (optional but improves UX)
+    if(navLinksDiv) {
+        const allLinks = navLinksDiv.querySelectorAll('.nav-link');
+        allLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth <= 768 && navLinksDiv.classList.contains('active')) {
+                    navLinksDiv.classList.remove('active');
+                    const icon = toggleBtn.querySelector('i');
+                    if(icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+    }
+
+    const translations = {
+        en: {
+            nav_home: "Home", nav_knowus: "Know Us", nav_mvv: "Mission, Vision & Values", nav_services: "Services", nav_whylea: "Why Choose LEA", nav_partnerships: "Partnerships", nav_contact: "Contact",
+            hero_badge: "Why Choose LEA", hero_title: "Proven aviation leadership for Southern Africa.", hero_tagline: "A trusted partner committed to safety, expertise, and tailored service.", hero_desc: "Legacy Executive Aviation combines deep regional experience, an extensive aircraft network, and world-class standards to serve businesses, governments, and communities.",
+            btn_home: "Return Home", btn_services: "Explore Services",
+            section_title: "The Legacy Advantage",
+            benefit1_title: "Extensive aircraft network", benefit1_text: "Access a broad fleet capable of serving private, executive, commercial, and cargo missions across the region.",
+            benefit2_title: "Experienced aviation professionals", benefit2_text: "Leadership and crews with proven track records, deep operational knowledge, and an unwavering focus on quality.",
+            benefit3_title: "Regional expertise in SADC", benefit3_text: "Local market understanding and air mobility solutions designed specifically for Southern African routes and regulations.",
+            benefit4_title: "Commitment to safety and excellence", benefit4_text: "Every flight and operation adheres to the highest standards of safety, compliance, and premium service delivery.",
+            benefit5_title: "Tailored aviation solutions", benefit5_text: "Customized mobility plans that respond to the unique needs of clients, projects, and strategic partners.",
+            footer_tagline: "Legacy Executive Aviation<br>Elevating Southern Africa", footer_home: "Home", footer_knowus: "Know Us", footer_mvv: "Mission, Vision & Values", footer_services: "Services", footer_whylea: "Why Choose LEA", footer_partnerships: "Partnerships", footer_contact: "Contact",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namibia / SADC Hub", footer_copyright: "2026 Legacy Executive Aviation — “Legacy is in the air” — All rights reserved"
+        },
+        pt: {
+            nav_home: "Início", nav_knowus: "Conheça-nos", nav_mvv: "Missão, Visão e Valores", nav_services: "Serviços", nav_whylea: "Por que escolher a LEA", nav_partnerships: "Parcerias", nav_contact: "Contato",
+            hero_badge: "Por que escolher a LEA", hero_title: "Liderança aeronáutica comprovada para a África Austral.", hero_tagline: "Um parceiro confiável comprometido com segurança, experiência e serviço sob medida.", hero_desc: "A Legacy Executive Aviation combina profunda experiência regional, uma ampla rede de aeronaves e padrões de classe mundial para atender empresas, governos e comunidades.",
+            btn_home: "Voltar ao Início", btn_services: "Explorar Serviços",
+            section_title: "A Vantagem Legacy",
+            benefit1_title: "Rede extensa de aeronaves", benefit1_text: "Acesse uma frota ampla capaz de atender missões privadas, executivas, comerciais e de carga na região.",
+            benefit2_title: "Profissionais de aviação experientes", benefit2_text: "Liderança e tripulações com histórico comprovado, profundo conhecimento operacional e foco inabalável na qualidade.",
+            benefit3_title: "Especialização regional na SADC", benefit3_text: "Compreensão do mercado local e soluções de mobilidade aérea projetadas especificamente para rotas e regulamentações da África Austral.",
+            benefit4_title: "Compromisso com segurança e excelência", benefit4_text: "Cada voo e operação segue os mais altos padrões de segurança, conformidade e prestação de serviço premium.",
+            benefit5_title: "Soluções de aviação personalizadas", benefit5_text: "Planos de mobilidade personalizados que respondem às necessidades exclusivas de clientes, projetos e parceiros estratégicos.",
+            footer_tagline: "Legacy Executive Aviation<br>Elevando a África Austral", footer_home: "Início", footer_knowus: "Conheça-nos", footer_mvv: "Missão, Visão e Valores", footer_services: "Serviços", footer_whylea: "Por que escolher a LEA", footer_partnerships: "Parcerias", footer_contact: "Contato",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namíbia / Hub SADC", footer_copyright: "2026 Legacy Executive Aviation — “Legacy está no ar” — Todos os direitos reservados"
+        },
+        fr: {
+            nav_home: "Accueil", nav_knowus: "À propos", nav_mvv: "Mission, Vision et Valeurs", nav_services: "Services", nav_whylea: "Pourquoi choisir LEA", nav_partnerships: "Partenariats", nav_contact: "Contact",
+            hero_badge: "Pourquoi choisir LEA", hero_title: "Leadership aéronautique éprouvé pour l'Afrique australe.", hero_tagline: "Un partenaire de confiance engagé pour la sécurité, l'expertise et un service sur mesure.", hero_desc: "Legacy Executive Aviation combine une expérience régionale approfondie, un vaste réseau d'avions et des normes mondiales pour servir les entreprises, les gouvernements et les communautés.",
+            btn_home: "Retour à l'accueil", btn_services: "Explorer les services",
+            section_title: "L'avantage Legacy",
+            benefit1_title: "Réseau d'aéronefs étendu", benefit1_text: "Accédez à une flotte bien entretenue capable de servir des missions privées, exécutives, commerciales et de fret dans la région.",
+            benefit2_title: "Professionnels de l'aviation expérimentés", benefit2_text: "Direction et équipages ayant fait leurs preuves, connaissances opérationnelles approfondies et un focus inébranlable sur la qualité.",
+            benefit3_title: "Expertise régionale dans la SADC", benefit3_text: "Compréhension du marché local et solutions de mobilité aérienne conçues spécifiquement pour les routes et la réglementation de l'Afrique australe.",
+            benefit4_title: "Engagement envers la sécurité et l'excellence", benefit4_text: "Chaque vol et opération respecte les normes les plus élevées de sécurité, de conformité et de prestation de service premium.",
+            benefit5_title: "Solutions d'aviation sur mesure", benefit5_text: "Plans de mobilité personnalisés répondant aux besoins uniques des clients, des projets et des partenaires stratégiques.",
+            footer_tagline: "Legacy Executive Aviation<br>Élever l'Afrique australe", footer_home: "Accueil", footer_knowus: "À propos", footer_mvv: "Mission, Vision et Valeurs", footer_services: "Services", footer_whylea: "Pourquoi choisir LEA", footer_partnerships: "Partenariats", footer_contact: "Contact",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namibie / Hub SADC", footer_copyright: "2026 Legacy Executive Aviation — “Legacy est dans l'air” — Tous droits réservés"
+        }
+    };
+
+    function applyLanguage(lang) {
+        if (!translations[lang]) lang = 'en';
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang][key] !== undefined) {
+                if (key === 'footer_tagline') {
+                    el.innerHTML = translations[lang][key];
+                } else {
+                    el.innerText = translations[lang][key];
+                }
+            }
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if (btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        document.documentElement.lang = lang;
+        localStorage.setItem('preferredLanguage', lang);
+    }
+
+    function initLanguageSwitcher() {
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                applyLanguage(lang);
+            });
+        });
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && translations[savedLang]) {
+            applyLanguage(savedLang);
+        } else {
+            applyLanguage('en');
+        }
+    }
+
+    // Scroll-triggered Fade-in & out effect with Intersection Observer
+    const fadeElements = document.querySelectorAll('.fade-up');
+    
+    function revealFadeElements() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    // Optional: keep observing but we can unobserve after reveal for performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" }); // subtle offset for smoothness
+        
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    // Re-run observer after dynamic content? not needed but reinitialize on resize just in case
+    revealFadeElements();
+    
+    // Additional subtle hover effect for benefit cards and active link glow preservation
+    // Also ensure that current page link remains active (already present)
+    // Fix for the active link highlight grow: we already added .active styles
+    
+    // Ensure if any window resize closes mobile menu on large screens
+    window.addEventListener('resize', function() {
+        if(window.innerWidth > 768 && navLinksDiv.classList.contains('active')) {
+            navLinksDiv.classList.remove('active');
+            const icon = toggleBtn.querySelector('i');
+            if(icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+    
+    // Manually set 'why.html' active state reflection (ensured by HTML class)
+    // Also small effect for smooth scroll and fading content that might have been loaded late
+    setTimeout(() => {
+        const hiddenElements = document.querySelectorAll('.fade-up:not(.revealed)');
+        hiddenElements.forEach(el => {
+            const rect = el.getBoundingClientRect();
+            if(rect.top < window.innerHeight - 100) {
+                el.classList.add('revealed');
+            }
+        });
+    }, 200);
+</script>
+</body>
+</html>

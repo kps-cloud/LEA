@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>About Us | Legacy Executive Aviation</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fc;
+            color: #1a2c3e;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --gold-yellow: #f5b81b;
+            --deep-yellow: #e6a100;
+            --silver-light: #eef2f5;
+            --silver-mid: #cbd5e1;
+            --silver-dark: #94a3b8;
+            --aviation-blue: #0a4b6e;
+            --aviation-deep: #06344d;
+            --accent-blue: #1e7aa5;
+            --white: #ffffff;
+            --dark-slate: #1e293b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loader Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.6s ease, visibility 0.6s ease;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 16px;
+        }
+
+        .dot-loader {
+            width: 18px;
+            height: 18px;
+            background-color: var(--gold-yellow);
+            border-radius: 50%;
+            animation: pulseLoader 1.2s infinite ease-in-out;
+        }
+
+        .dot-loader:nth-child(1) { animation-delay: 0s; }
+        .dot-loader:nth-child(2) { animation-delay: 0.2s; }
+        .dot-loader:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulseLoader {
+            0%, 60%, 100% { transform: scale(0.6); opacity: 0.4; }
+            30% { transform: scale(1.2); opacity: 1; }
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        /* Fade-in animation on scroll */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .fade-up.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--aviation-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--gold-yellow);
+            border-radius: 4px;
+        }
+
+        /* Button Styles */
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            font-weight: 600;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-yellow) 0%, #f39c12 100%);
+            color: var(--aviation-deep);
+            box-shadow: 0 4px 12px rgba(245,184,27,0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #f5c542 0%, #e67e22 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--aviation-blue);
+            color: var(--aviation-blue);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(120deg, var(--aviation-blue), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(10,75,110,0.2);
+        }
+
+        /* Header & Navigation - Modern Centered Style */
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-circle-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(10, 75, 110, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid var(--gold-yellow);
+        }
+
+        .logo-circle-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: var(--aviation-blue);
+        }
+
+        /* Centered Navigation Links */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 28px;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            transition: all 0.2s;
+        }
+
+        .nav-link {
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 8px 4px;
+            color: var(--dark-slate);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            position: relative;
+            letter-spacing: 0.3px;
+        }
+
+        /* Hover Grow + Highlight Effect */
+        .nav-link:hover {
+            color: var(--gold-yellow);
+            transform: scale(1.08);
+            text-shadow: 0 2px 5px rgba(245, 184, 27, 0.2);
+        }
+
+        /* Active link styling with grow and golden accent */
+        .nav-link.active {
+            color: var(--aviation-blue);
+            font-weight: 800;
+            position: relative;
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: -6px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold-yellow), #f7c948);
+            border-radius: 6px;
+            animation: glowPulse 1.5s infinite ease-in-out;
+        }
+
+        @keyframes glowPulse {
+            0% { opacity: 0.6; width: 80%; left: 10%; }
+            50% { opacity: 1; width: 100%; left: 0%; }
+            100% { opacity: 0.6; width: 80%; left: 10%; }
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            background: var(--silver-light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-left: 8px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 30px;
+            transition: 0.2s;
+            color: var(--aviation-blue);
+        }
+
+        .lang-btn.active {
+            background: var(--gold-yellow);
+            color: var(--aviation-deep);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--aviation-blue);
+            transition: transform 0.2s;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            color: var(--gold-yellow);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at 10% 20%, rgba(255,245,210,0.9), rgba(230,242,255,0.95)), linear-gradient(125deg, #fff3e0, #e0f0ff);
+            background-blend-mode: overlay;
+            padding: 80px 0 70px;
+            position: relative;
+            border-bottom: 1px solid rgba(245,184,27,0.3);
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-badge {
+            background: var(--gold-yellow);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--aviation-deep);
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--aviation-blue);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--gold-yellow);
+            margin: 16px 0 20px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #334155;
+            max-width: 90%;
+            margin-top: 12px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+        }
+
+        /* About Details Panel */
+        .page-panel {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            border-left: 8px solid var(--gold-yellow);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .page-panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .info-card {
+            background: var(--silver-light);
+            border-radius: 28px;
+            padding: 32px;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-yellow);
+            box-shadow: 0 18px 30px rgba(0,0,0,0.08);
+        }
+
+        .info-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+            color: var(--aviation-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .info-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gold-yellow);
+            border-radius: 3px;
+        }
+
+        .info-card p {
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-top: 16px;
+        }
+
+        /* Footer */
+        .page-footer {
+            background: var(--aviation-deep);
+            color: #cbd5e6;
+            padding: 48px 0 28px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .footer-contact-item i {
+            width: 24px;
+            font-size: 1.2rem;
+            color: var(--gold-yellow);
+        }
+
+        .footer-links a {
+            color: var(--silver-mid);
+            text-decoration: none;
+            margin-right: 24px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-yellow);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.8rem;
+            border-top: 1px solid #1f5a7a;
+            padding-top: 24px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .nav-links { gap: 18px; }
+        }
+
+        @media (max-width: 992px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-tagline { font-size: 1.2rem; }
+            .hero-visual img { height: 320px; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+
+            .nav-links {
+                display: none;
+                width: 100%;
+                flex-direction: column;
+                gap: 22px;
+                padding: 28px 16px;
+                background: white;
+                border-radius: 28px;
+                margin-top: 12px;
+                box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+                text-align: center;
+                align-items: center;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .menu-toggle {
+                display: block;
+            }
+
+            .hero-grid {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .btn-group {
+                justify-content: center;
+            }
+
+            .section-title:after {
+                left: 50%;
+                transform: translateX(-50%);
+                width: 70px;
+            }
+
+            .section-title {
+                text-align: center;
+                display: block;
+            }
+
+            .lang-switch {
+                margin-left: 0;
+                margin-top: 8px;
+                justify-content: center;
+            }
+
+            .hero-visual img {
+                height: 260px;
+            }
+
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                align-items: center;
+                text-align: center;
+            }
+
+            .footer-contact-item {
+                justify-content: center;
+            }
+
+            .info-card h3:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-visual img { height: 220px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader-wrapper" id="loaderWrapper">
+    <div class="loader-dots">
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+    </div>
+</div>
+
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="img/logo.jpg" alt="Legacy Executive Aviation" class="logo-circle-img" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=LEA';">
+                <span class="logo-text">LEGACY</span>
+            </div>
+            <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html" class="nav-link"><i class="fas fa-home"></i> <span data-key="nav_home">Home</span></a>
+                <a href="about.html" class="nav-link active"><i class="fas fa-info-circle"></i> <span data-key="nav_knowus">Know Us</span></a>
+                <a href="mission.html" class="nav-link"><i class="fas fa-bullseye"></i> <span data-key="nav_mvv">Mission, Vision & Values</span></a>
+                <a href="services.html" class="nav-link"><i class="fas fa-concierge-bell"></i> <span data-key="nav_services">Services</span></a>
+                <a href="why.html" class="nav-link"><i class="fas fa-globe"></i> <span data-key="nav_whylea">Why Choose LEA</span></a>
+                <a href="partnerships.html" class="nav-link"><i class="fas fa-handshake"></i> <span data-key="nav_partnerships">Partnerships</span></a>
+                <a href="contact.html" class="nav-link"><i class="fas fa-envelope"></i> <span data-key="nav_contact">Contact</span></a>
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="pt">PT</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <section class="hero fade-up">
+        <div class="container hero-grid">
+            <div class="hero-content">
+                <div class="hero-badge"><i class="fas fa-plane-departure"></i> <span data-key="hero_badge">Premium Air Mobility</span></div>
+                <h1><span data-key="hero_title">About Legacy Executive Aviation</span></h1>
+                <div class="hero-tagline"><span data-key="hero_tagline">A bold vision for aviation across Southern Africa</span></div>
+                <p class="hero-desc"><span data-key="hero_desc">Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region by delivering safe, efficient, and premium air mobility solutions.</span></p>
+                <div class="btn-group">
+                    <a href="index.html" class="btn btn-outline"><i class="fas fa-home"></i> <span data-key="btn_home">Return Home</span></a>
+                    <a href="#about-details" class="btn btn-primary"><i class="fas fa-info-circle"></i> <span data-key="btn_learn">Learn About Us</span></a>
+                </div>
+            </div>
+            <div class="hero-visual">
+                <img src="img/1.jpg" alt="Legacy Executive Aviation" onerror="this.src='https://placehold.co/800x500?text=Legacy+Executive+Aviation';">
+            </div>
+        </div>
+    </section>
+
+    <section id="about-details" class="fade-up">
+        <div class="container">
+            <div class="page-panel">
+                <h2 class="section-title"><span data-key="whoweare_title">Who We Are</span></h2>
+                <p><span data-key="whoweare_text">Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region. We exist to close the aviation accessibility gap in Southern Africa by delivering safe, efficient, and premium air mobility solutions.</span></p>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><span data-key="strength_title">Our Strength</span></h3>
+                        <p><span data-key="strength_text">With immediate access to more than 100 aircraft and a leadership team composed of aviation professionals with over 30 years of experience — including pilots exceeding 15,000 flight hours — our operational capacity and technical expertise set us apart in the regional market.</span></p>
+                    </div>
+                    <div class="info-card">
+                        <h3><span data-key="impact_title">Regional Impact</span></h3>
+                        <p><span data-key="impact_text">We are committed to raising the standard of aviation in Southern Africa through scalable services, dependable flight operations, and a customer-first experience designed for business and executive travelers.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="page-footer fade-up">
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <img src="img/logo.jpg" alt="LEA" style="height: 52px; width: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-yellow);" onerror="this.src='https://placehold.co/100x100?text=LEA';">
+                <p style="margin-top: 12px;"><i class="fas fa-building"></i> <span data-key="footer_tagline">Legacy Executive Aviation<br>Elevating Southern Africa</span></p>
+            </div>
+            <div class="footer-links">
+                <a href="index.html"><i class="fas fa-home"></i> <span data-key="footer_home">Home</span></a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> <span data-key="footer_knowus">Know Us</span></a>
+                <a href="mission.html"><i class="fas fa-bullseye"></i> <span data-key="footer_mvv">Mission, Vision & Values</span></a>
+                <a href="services.html"><i class="fas fa-concierge-bell"></i> <span data-key="footer_services">Services</span></a>
+            </div>
+            <div>
+                <div class="footer-contact-item"><i class="fas fa-envelope"></i> <span data-key="footer_email">fly@legacyaviation.aero</span></div>
+                <div class="footer-contact-item"><i class="fas fa-phone-alt"></i> <span data-key="footer_phone">+264 61 123 456</span></div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> <span data-key="footer_address">Windhoek, Namibia / SADC Hub</span></div>
+            </div>
+        </div>
+        <div class="copyright"><p><i class="far fa-copyright"></i> <span data-key="footer_copyright">2026 Legacy Executive Aviation — "Legacy is in the air" — All rights reserved</span></p></div>
+    </div>
+</footer>
+
+<script>
+    // ---- MULTI-LANGUAGE DICTIONARY ----
+    const translations = {
+        en: {
+            nav_home: "Home", nav_knowus: "Know Us", nav_mvv: "Mission, Vision & Values",
+            nav_services: "Services", nav_whylea: "Why Choose LEA", nav_partnerships: "Partnerships", nav_contact: "Contact",
+            hero_badge: "Premium Air Mobility", hero_title: "About Legacy Executive Aviation",
+            hero_tagline: "A bold vision for aviation across Southern Africa",
+            hero_desc: "Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region by delivering safe, efficient, and premium air mobility solutions.",
+            btn_home: "Return Home", btn_learn: "Learn About Us",
+            whoweare_title: "Who We Are",
+            whoweare_text: "Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region. We exist to close the aviation accessibility gap in Southern Africa by delivering safe, efficient, and premium air mobility solutions.",
+            strength_title: "Our Strength",
+            strength_text: "With immediate access to more than 100 aircraft and a leadership team composed of aviation professionals with over 30 years of experience — including pilots exceeding 15,000 flight hours — our operational capacity and technical expertise set us apart in the regional market.",
+            impact_title: "Regional Impact",
+            impact_text: "We are committed to raising the standard of aviation in Southern Africa through scalable services, dependable flight operations, and a customer-first experience designed for business and executive travelers.",
+            footer_tagline: "Legacy Executive Aviation<br>Elevating Southern Africa",
+            footer_home: "Home", footer_knowus: "Know Us", footer_mvv: "Mission, Vision & Values", footer_services: "Services",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namibia / SADC Hub",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy is in the air\" — All rights reserved"
+        },
+        pt: {
+            nav_home: "Início", nav_knowus: "Conheça-nos", nav_mvv: "Missão, Visão e Valores",
+            nav_services: "Serviços", nav_whylea: "Por que escolher a LEA", nav_partnerships: "Parcerias", nav_contact: "Contato",
+            hero_badge: "Mobilidade Aérea Premium", hero_title: "Sobre a Legacy Executive Aviation",
+            hero_tagline: "Uma visão ousada para a aviação em toda a África Austral",
+            hero_desc: "A Legacy Executive Aviation está estrategicamente posicionada para transformar a aviação em toda a região da SADC, oferecendo soluções de mobilidade aérea seguras, eficientes e premium.",
+            btn_home: "Voltar ao Início", btn_learn: "Saiba Mais",
+            whoweare_title: "Quem Somos",
+            whoweare_text: "A Legacy Executive Aviation está estrategicamente posicionada para transformar a aviação em toda a região da SADC. Existimos para fechar a lacuna de acessibilidade da aviação na África Austral, oferecendo soluções de mobilidade aérea seguras, eficientes e premium.",
+            strength_title: "Nossa Força",
+            strength_text: "Com acesso imediato a mais de 100 aeronaves e uma equipe de liderança composta por profissionais da aviação com mais de 30 anos de experiência — incluindo pilotos com mais de 15.000 horas de voo — nossa capacidade operacional e experiência técnica nos diferenciam no mercado regional.",
+            impact_title: "Impacto Regional",
+            impact_text: "Estamos comprometidos em elevar o padrão da aviação na África Austral por meio de serviços escaláveis, operações de voo confiáveis e uma experiência centrada no cliente, projetada para viajantes de negócios e executivos.",
+            footer_tagline: "Legacy Executive Aviation<br>Elevando a África Austral",
+            footer_home: "Início", footer_knowus: "Conheça-nos", footer_mvv: "Missão, Visão e Valores", footer_services: "Serviços",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namíbia / Hub SADC",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy está no ar\" — Todos os direitos reservados"
+        },
+        fr: {
+            nav_home: "Accueil", nav_knowus: "Qui sommes-nous", nav_mvv: "Mission, Vision et Valeurs",
+            nav_services: "Services", nav_whylea: "Pourquoi choisir LEA", nav_partnerships: "Partenariats", nav_contact: "Contact",
+            hero_badge: "Mobilité aérienne premium", hero_title: "À propos de Legacy Executive Aviation",
+            hero_tagline: "Une vision audacieuse pour l'aviation en Afrique australe",
+            hero_desc: "Legacy Executive Aviation est stratégiquement positionnée pour transformer l'aviation dans la région SADC en fournissant des solutions de mobilité aérienne sûres, efficaces et premium.",
+            btn_home: "Retour à l'accueil", btn_learn: "En savoir plus",
+            whoweare_title: "Qui nous sommes",
+            whoweare_text: "Legacy Executive Aviation est stratégiquement positionnée pour transformer l'aviation dans la région SADC. Nous existons pour combler le fossé d'accessibilité de l'aviation en Afrique australe en fournissant des solutions de mobilité aérienne sûres, efficaces et premium.",
+            strength_title: "Notre force",
+            strength_text: "Avec un accès immédiat à plus de 100 aéronefs et une équipe de direction composée de professionnels de l'aviation avec plus de 30 ans d'expérience — y compris des pilotes dépassant 15 000 heures de vol — notre capacité opérationnelle et notre expertise technique nous distinguent sur le marché régional.",
+            impact_title: "Impact régional",
+            impact_text: "Nous nous engageons à élever le niveau de l'aviation en Afrique australe grâce à des services évolutifs, des opérations de vol fiables et une expérience centrée sur le client conçue pour les voyageurs d'affaires et exécutifs.",
+            footer_tagline: "Legacy Executive Aviation<br>Élever l'Afrique australe",
+            footer_home: "Accueil", footer_knowus: "Qui sommes-nous", footer_mvv: "Mission, Vision et Valeurs", footer_services: "Services",
+            footer_email: "fly@legacyaviation.aero", footer_phone: "+264 61 123 456", footer_address: "Windhoek, Namibie / Hub SADC",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy est dans l'air\" — Tous droits réservés"
+        }
+    };
+
+    function applyLanguage(lang) {
+        if (!translations[lang]) lang = 'en';
+        const elements = document.querySelectorAll('[data-key]');
+        elements.forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang][key] !== undefined) {
+                if (key === 'footer_tagline') {
+                    el.innerHTML = translations[lang][key];
+                } else {
+                    el.innerText = translations[lang][key];
+                }
+            }
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            if(btn.getAttribute('data-lang') === lang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        document.documentElement.lang = lang;
+        localStorage.setItem('preferredLanguage', lang);
+    }
+
+    function initLanguageSwitcher() {
+        const langBtns = document.querySelectorAll('.lang-btn');
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                const lang = btn.getAttribute('data-lang');
+                applyLanguage(lang);
+            });
+        });
+        const savedLang = localStorage.getItem('preferredLanguage');
+        if (savedLang && translations[savedLang]) {
+            applyLanguage(savedLang);
+        } else {
+            applyLanguage('en');
+        }
+    }
+
+    // Loader hide
+    window.addEventListener('load', function() {
+        const loader = document.getElementById('loaderWrapper');
+        if(loader) {
+            loader.classList.add('hidden');
+            setTimeout(() => { loader.style.display = 'none'; }, 600);
+        }
+        revealFadeElements();
+        initLanguageSwitcher();
+    });
+
+    // Mobile menu toggle
+    const toggleBtn = document.getElementById('mobileMenuBtn');
+    const navLinksDiv = document.getElementById('navLinks');
+    if(toggleBtn) {
+        toggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navLinksDiv.classList.toggle('active');
+            const icon = toggleBtn.querySelector('i');
+            if(navLinksDiv.classList.contains('active')) {
+                icon.classList.remove('fa-bars');
+                icon.classList.add('fa-times');
+            } else {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        });
+    }
+
+    // Close mobile menu when clicking on nav-link
+    if(navLinksDiv) {
+        const allLinks = navLinksDiv.querySelectorAll('.nav-link');
+        allLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if(window.innerWidth <= 768 && navLinksDiv.classList.contains('active')) {
+                    navLinksDiv.classList.remove('active');
+                    const icon = toggleBtn.querySelector('i');
+                    if(icon) {
+                        icon.classList.remove('fa-times');
+                        icon.classList.add('fa-bars');
+                    }
+                }
+            });
+        });
+    }
+
+    // Fade-in on scroll
+    const fadeElements = document.querySelectorAll('.fade-up');
+    
+    function revealFadeElements() {
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.12, rootMargin: "0px 0px -20px 0px" });
+        
+        fadeElements.forEach(el => {
+            observer.observe(el);
+        });
+    }
+    
+    revealFadeElements();
+
+    // Close mobile menu on resize
+    window.addEventListener('resize', function() {
+        if(window.innerWidth > 768 && navLinksDiv.classList.contains('active')) {
+            navLinksDiv.classList.remove('active');
+            const icon = toggleBtn.querySelector('i');
+            if(icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+</script>
+</body>
+</html>
+```
