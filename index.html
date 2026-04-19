@@ -1,0 +1,1836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Legacy Executive Aviation | Premium Air Mobility</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f5f7fc;
+            color: #1a2c3e;
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --gold-yellow: #f5b81b;
+            --deep-yellow: #e6a100;
+            --silver-light: #eef2f5;
+            --silver-mid: #cbd5e1;
+            --silver-dark: #94a3b8;
+            --aviation-blue: #0a4b6e;
+            --aviation-deep: #06344d;
+            --accent-blue: #1e7aa5;
+            --white: #ffffff;
+            --dark-slate: #1e293b;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Loader Animation */
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--white);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .loader-wrapper.hide-loader {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader-wrapper.show-loader {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .loader-dots {
+            display: flex;
+            gap: 16px;
+        }
+
+        .dot-loader {
+            width: 18px;
+            height: 18px;
+            background-color: var(--gold-yellow);
+            border-radius: 50%;
+            animation: pulseLoader 1.2s infinite ease-in-out;
+        }
+
+        .dot-loader:nth-child(1) { animation-delay: 0s; }
+        .dot-loader:nth-child(2) { animation-delay: 0.2s; }
+        .dot-loader:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes pulseLoader {
+            0%, 60%, 100% { transform: scale(0.6); opacity: 0.4; }
+            30% { transform: scale(1.2); opacity: 1; }
+        }
+
+        /* Fade-in animation on scroll */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(35px);
+            transition: opacity 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1), transform 0.85s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .fade-up.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .container {
+            max-width: 1280px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        section {
+            padding: 70px 0;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--aviation-blue);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+
+        .section-title:after {
+            content: '';
+            position: absolute;
+            bottom: -12px;
+            left: 0;
+            width: 70px;
+            height: 4px;
+            background: var(--gold-yellow);
+            border-radius: 4px;
+        }
+
+        /* Button Styles */
+        .btn-group {
+            display: flex;
+            gap: 18px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 32px;
+            font-weight: 600;
+            border-radius: 40px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            text-align: center;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold-yellow) 0%, #f39c12 100%);
+            color: var(--aviation-deep);
+            box-shadow: 0 4px 12px rgba(245,184,27,0.4);
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #f5c542 0%, #e67e22 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 2px solid var(--aviation-blue);
+            color: var(--aviation-blue);
+        }
+
+        .btn-outline:hover {
+            background: linear-gradient(120deg, var(--aviation-blue), var(--accent-blue));
+            color: white;
+            border-color: transparent;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 18px rgba(10,75,110,0.2);
+        }
+
+        .btn-light {
+            background: white;
+            color: var(--aviation-blue);
+            border: 1px solid var(--silver-mid);
+        }
+
+        .btn-light:hover {
+            background: linear-gradient(145deg, #ffffff, #f0f4f9);
+            transform: translateY(-2px);
+            border-color: var(--gold-yellow);
+        }
+
+        /* Header & Navigation - Dropdown Style */
+        header {
+            background: rgba(255, 255, 255, 0.96);
+            backdrop-filter: blur(4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.04);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 1px solid rgba(203, 213, 225, 0.6);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 14px 0;
+            flex-wrap: wrap;
+            gap: 16px;
+        }
+
+        .logo-area {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-shrink: 0;
+        }
+
+        .logo-circle-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 6px 14px rgba(10, 75, 110, 0.2);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 2px solid var(--gold-yellow);
+        }
+
+        .logo-circle-img:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
+        .logo-text {
+            font-weight: 800;
+            font-size: 1.25rem;
+            letter-spacing: -0.5px;
+            color: var(--aviation-blue);
+        }
+
+        /* Desktop Dropdown Menu */
+        .nav-links {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+            margin: 0 auto;
+            transition: all 0.2s;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        .dropbtn {
+            background: none;
+            border: none;
+            font-weight: 700;
+            font-size: 0.95rem;
+            padding: 8px 12px;
+            color: var(--dark-slate);
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+            font-family: inherit;
+            border-radius: 40px;
+        }
+
+        .dropbtn i:last-child {
+            font-size: 0.75rem;
+            transition: transform 0.2s;
+        }
+
+        .dropdown:hover .dropbtn i:last-child,
+        .dropdown.active .dropbtn i:last-child {
+            transform: rotate(180deg);
+        }
+
+        .dropbtn:hover {
+            color: var(--gold-yellow);
+            transform: scale(1.05);
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: white;
+            min-width: 220px;
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.12);
+            border-radius: 20px;
+            z-index: 1;
+            overflow: hidden;
+            border: 1px solid var(--silver-mid);
+            padding: 8px 0;
+        }
+
+        .dropdown-content a {
+            color: var(--dark-slate);
+            padding: 12px 20px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.2s;
+        }
+
+        .dropdown-content a i {
+            width: 20px;
+            color: var(--aviation-blue);
+        }
+
+        .dropdown-content a:hover {
+            background: var(--silver-light);
+            color: var(--gold-yellow);
+            padding-left: 28px;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .lang-switch {
+            display: flex;
+            gap: 6px;
+            background: var(--silver-light);
+            padding: 5px 12px;
+            border-radius: 50px;
+            margin-left: 8px;
+        }
+
+        .lang-btn {
+            background: transparent;
+            border: none;
+            font-weight: 600;
+            font-size: 0.75rem;
+            cursor: pointer;
+            padding: 5px 10px;
+            border-radius: 30px;
+            transition: 0.2s;
+            color: var(--aviation-blue);
+        }
+
+        .lang-btn.active {
+            background: var(--gold-yellow);
+            color: var(--aviation-deep);
+        }
+
+        .lang-btn:hover:not(.active) {
+            background: white;
+            transform: scale(1.05);
+        }
+
+        .menu-toggle {
+            display: none;
+            font-size: 28px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--aviation-blue);
+            transition: transform 0.2s;
+        }
+
+        .menu-toggle:hover {
+            transform: scale(1.1);
+            color: var(--gold-yellow);
+        }
+
+        /* Mobile Dropdown Menu */
+        .mobile-nav {
+            display: none;
+            width: 100%;
+            flex-direction: column;
+            background: white;
+            border-radius: 28px;
+            margin-top: 12px;
+            box-shadow: 0 20px 30px rgba(0, 0, 0, 0.08);
+            overflow: hidden;
+        }
+
+        .mobile-nav.active {
+            display: flex;
+        }
+
+        .mobile-nav-item {
+            border-bottom: 1px solid var(--silver-light);
+        }
+
+        .mobile-nav-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 16px 20px;
+            font-weight: 700;
+            color: var(--dark-slate);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .mobile-nav-header:hover {
+            background: var(--silver-light);
+        }
+
+        .mobile-nav-header i:first-child {
+            width: 28px;
+            color: var(--aviation-blue);
+        }
+
+        .mobile-nav-header i:last-child {
+            transition: transform 0.2s;
+        }
+
+        .mobile-dropdown-content {
+            display: none;
+            background: #f8fafc;
+            padding: 8px 0;
+        }
+
+        .mobile-dropdown-content a {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px 12px 56px;
+            text-decoration: none;
+            color: var(--dark-slate);
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+
+        .mobile-dropdown-content a i {
+            width: 20px;
+            color: var(--aviation-blue);
+        }
+
+        .mobile-dropdown-content a:hover {
+            background: var(--silver-mid);
+            color: var(--gold-yellow);
+        }
+
+        .mobile-nav-item.open .mobile-dropdown-content {
+            display: block;
+        }
+
+        .mobile-nav-item.open .mobile-nav-header i:last-child {
+            transform: rotate(180deg);
+        }
+
+        /* Page Sections */
+        .page-section {
+            display: none;
+        }
+
+        .page-section.active-page {
+            display: block;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: radial-gradient(circle at 10% 20%, rgba(255,245,210,0.9), rgba(230,242,255,0.95)), linear-gradient(125deg, #fff3e0, #e0f0ff);
+            background-blend-mode: overlay;
+            padding: 80px 0 70px;
+            position: relative;
+            border-bottom: 1px solid rgba(245,184,27,0.3);
+        }
+
+        .hero-grid {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+            flex-wrap: wrap;
+        }
+
+        .hero-content {
+            flex: 1.2;
+        }
+
+        .hero-badge {
+            background: var(--gold-yellow);
+            display: inline-block;
+            padding: 6px 16px;
+            border-radius: 40px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: var(--aviation-deep);
+            margin-bottom: 20px;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            line-height: 1.2;
+            color: var(--aviation-blue);
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--gold-yellow);
+            margin: 16px 0 20px;
+        }
+
+        .hero-desc {
+            font-size: 1.1rem;
+            color: #334155;
+            max-width: 90%;
+            margin-top: 12px;
+        }
+
+        .hero-visual {
+            flex: 1;
+            border-radius: 32px;
+            overflow: hidden;
+            box-shadow: 0 25px 40px -12px rgba(0,0,0,0.2);
+        }
+
+        .hero-visual img {
+            width: 100%;
+            height: 420px;
+            object-fit: cover;
+        }
+
+        /* Page Panels */
+        .page-panel {
+            background: white;
+            border-radius: 32px;
+            padding: 40px;
+            border-left: 8px solid var(--gold-yellow);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            transition: transform 0.3s ease, box-shadow 0.3s;
+        }
+
+        .page-panel:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .info-card {
+            background: var(--silver-light);
+            border-radius: 28px;
+            padding: 32px;
+            border: 1px solid rgba(203, 213, 225, 0.8);
+            transition: all 0.3s cubic-bezier(0.2, 0.9, 0.4, 1.1);
+        }
+
+        .info-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--gold-yellow);
+            box-shadow: 0 18px 30px rgba(0,0,0,0.08);
+        }
+
+        .info-card h3 {
+            margin-bottom: 16px;
+            font-size: 1.6rem;
+            color: var(--aviation-blue);
+            position: relative;
+            display: inline-block;
+        }
+
+        .info-card h3:after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: var(--gold-yellow);
+            border-radius: 3px;
+        }
+
+        .info-card p {
+            color: #334155;
+            font-size: 1rem;
+            line-height: 1.75;
+            margin-top: 16px;
+        }
+
+        /* Services Grid */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .service-card {
+            background: white;
+            border-radius: 32px;
+            padding: 36px 32px;
+            border-left: 8px solid var(--gold-yellow);
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+            transition: all 0.3s;
+        }
+
+        .service-card:hover {
+            transform: translateY(-8px);
+            border-left-color: var(--aviation-blue);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            color: var(--gold-yellow);
+            margin-bottom: 20px;
+        }
+
+        .service-card h3 {
+            font-size: 1.5rem;
+            color: var(--aviation-blue);
+            margin-bottom: 16px;
+        }
+
+        .service-card p {
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        /* Benefits Grid for Why Choose */
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(260px, 1fr));
+            gap: 24px;
+            margin-top: 32px;
+        }
+
+        .benefit-card {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            border-left: 8px solid var(--gold-yellow);
+            transition: all 0.3s;
+        }
+
+        .benefit-card:hover {
+            transform: translateY(-6px);
+            border-color: var(--aviation-blue);
+        }
+
+        .benefit-icon {
+            font-size: 2.8rem;
+            color: var(--aviation-blue);
+            margin-bottom: 18px;
+        }
+
+        .benefit-card h3 {
+            font-size: 1.5rem;
+            color: var(--aviation-blue);
+            margin-bottom: 12px;
+        }
+
+        .benefit-card p {
+            color: #334155;
+            line-height: 1.6;
+        }
+
+        /* Partners Grid */
+        .partners-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 28px;
+            margin-top: 32px;
+        }
+
+        .partner-card {
+            background: white;
+            border-radius: 32px;
+            padding: 36px 28px;
+            border-left: 8px solid var(--gold-yellow);
+            transition: all 0.3s;
+        }
+
+        .partner-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 20px 35px rgba(0,0,0,0.08);
+        }
+
+        .partner-icon {
+            font-size: 2.8rem;
+            color: var(--gold-yellow);
+            margin-bottom: 20px;
+        }
+
+        .partner-card h3 {
+            font-size: 1.5rem;
+            color: var(--aviation-blue);
+            margin-bottom: 16px;
+        }
+
+        .partner-card p {
+            color: #334155;
+            line-height: 1.7;
+        }
+
+        /* Contact Form */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 32px;
+        }
+
+        .contact-info {
+            background: var(--silver-light);
+            border-radius: 32px;
+            padding: 32px;
+        }
+
+        .contact-detail {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+
+        .contact-detail i {
+            font-size: 1.8rem;
+            color: var(--gold-yellow);
+        }
+
+        .contact-detail div strong {
+            display: block;
+            margin-bottom: 4px;
+            color: var(--aviation-blue);
+        }
+
+        .contact-form {
+            background: white;
+            border-radius: 32px;
+            padding: 32px;
+            box-shadow: 0 12px 28px rgba(0,0,0,0.04);
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 14px 18px;
+            border: 1px solid var(--silver-mid);
+            border-radius: 16px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: var(--gold-yellow);
+            box-shadow: 0 0 0 3px rgba(245,184,27,0.2);
+        }
+
+        /* Gallery Carousel */
+        .gallery-section {
+            background: linear-gradient(145deg, #e2eafc 0%, #fef9e6 100%);
+            overflow: hidden;
+            position: relative;
+            padding: 70px 0;
+        }
+
+        .carousel-container {
+            position: relative;
+            max-width: 1100px;
+            margin: 40px auto 20px;
+            overflow: hidden;
+            border-radius: 28px;
+            box-shadow: 0 20px 35px -8px rgba(0,0,0,0.2);
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        }
+
+        .carousel-slide {
+            flex: 0 0 100%;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 380px;
+            object-fit: cover;
+        }
+
+        .carousel-btn {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(10, 75, 110, 0.85);
+            color: white;
+            border: none;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.5rem;
+            transition: all 0.2s;
+            z-index: 10;
+        }
+
+        .carousel-btn:hover {
+            background: var(--gold-yellow);
+            color: var(--aviation-deep);
+        }
+
+        .btn-prev { left: 15px; }
+        .btn-next { right: 15px; }
+
+        .dot-container {
+            text-align: center;
+            padding: 20px 0 10px;
+        }
+
+        .dot {
+            height: 12px;
+            width: 12px;
+            margin: 0 6px;
+            background-color: var(--silver-mid);
+            border-radius: 50%;
+            display: inline-block;
+            cursor: pointer;
+        }
+
+        .dot.active-dot {
+            background-color: var(--gold-yellow);
+            transform: scale(1.3);
+        }
+
+        .slideshow-caption {
+            text-align: center;
+            margin-top: 12px;
+            font-weight: 600;
+            color: var(--aviation-blue);
+            background: rgba(255,255,240,0.85);
+            display: inline-block;
+            width: 100%;
+            padding: 6px 24px;
+            border-radius: 60px;
+        }
+
+        /* Footer */
+        .page-footer {
+            background: var(--aviation-deep);
+            color: #cbd5e6;
+            padding: 48px 0 28px;
+        }
+
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 32px;
+        }
+
+        .footer-contact-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 14px;
+        }
+
+        .footer-contact-item i {
+            width: 24px;
+            font-size: 1.2rem;
+            color: var(--gold-yellow);
+        }
+
+        .footer-links a {
+            color: var(--silver-mid);
+            text-decoration: none;
+            margin-right: 24px;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold-yellow);
+        }
+
+        .copyright {
+            text-align: center;
+            margin-top: 48px;
+            font-size: 0.8rem;
+            border-top: 1px solid #1f5a7a;
+            padding-top: 24px;
+        }
+
+        /* Highlights Grid */
+        .highlights-grid {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 30px;
+            justify-content: space-between;
+            margin-top: 30px;
+        }
+
+        .highlight-card {
+            background: white;
+            flex: 1;
+            min-width: 180px;
+            text-align: center;
+            padding: 32px 20px;
+            border-radius: 32px;
+            transition: all 0.3s;
+            border: 1px solid var(--silver-mid);
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-8px);
+            border-color: var(--gold-yellow);
+        }
+
+        .highlight-icon {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            color: var(--aviation-blue);
+        }
+
+        /* Responsive */
+        @media (max-width: 992px) {
+            .hero-content h1 { font-size: 2.5rem; }
+            .hero-tagline { font-size: 1.2rem; }
+            .hero-visual img { height: 320px; }
+            .info-grid { grid-template-columns: 1fr; }
+            .benefits-grid { grid-template-columns: 1fr; }
+            .contact-grid { grid-template-columns: 1fr; }
+            .highlights-grid { flex-direction: column; }
+            .services-grid { flex-direction: column; }
+        }
+
+        @media (max-width: 768px) {
+            .navbar { flex-direction: row; justify-content: space-between; }
+            .nav-links { display: none; }
+            .menu-toggle { display: block; }
+            .hero-grid { flex-direction: column; text-align: center; }
+            .btn-group { justify-content: center; }
+            .section-title:after { left: 50%; transform: translateX(-50%); width: 70px; }
+            .section-title { text-align: center; display: block; }
+            .hero-visual img { height: 260px; }
+            .carousel-slide img { height: 250px; }
+            .footer-inner { flex-direction: column; align-items: center; text-align: center; }
+            .footer-contact-item { justify-content: center; }
+            .info-card h3:after { left: 50%; transform: translateX(-50%); }
+            .partner-card, .service-card, .benefit-card { text-align: center; }
+            .partner-card h3:after, .service-card h3:after, .benefit-card h3:after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+
+        @media (max-width: 560px) {
+            .hero-visual img { height: 220px; }
+            .carousel-slide img { height: 200px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="loader-wrapper" id="loaderWrapper">
+    <div class="loader-dots">
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+        <div class="dot-loader"></div>
+    </div>
+</div>
+
+<header>
+    <div class="container">
+        <div class="navbar">
+            <div class="logo-area">
+                <img src="img/logo.jpg" alt="Legacy Executive Aviation" class="logo-circle-img" onerror="this.onerror=null; this.src='https://placehold.co/200x200?text=LEA';">
+                <span class="logo-text">LEGACY</span>
+            </div>
+            <button class="menu-toggle" id="mobileMenuBtn" aria-label="Menu"><i class="fas fa-bars"></i></button>
+            
+            <!-- Desktop Dropdown Navigation -->
+            <div class="nav-links" id="desktopNav">
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-home"></i> Home <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#" data-page="home"><i class="fas fa-home"></i> Home</a>
+                        <a href="#" data-page="about"><i class="fas fa-info-circle"></i> Know Us</a>
+                        <a href="#" data-page="mission"><i class="fas fa-bullseye"></i> Mission, Vision & Values</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-concierge-bell"></i> Services <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#" data-page="services"><i class="fas fa-concierge-bell"></i> Services</a>
+                        <a href="#" data-page="why"><i class="fas fa-globe"></i> Why Choose LEA</a>
+                    </div>
+                </div>
+                <div class="dropdown">
+                    <button class="dropbtn"><i class="fas fa-handshake"></i> Partnerships <i class="fas fa-chevron-down"></i></button>
+                    <div class="dropdown-content">
+                        <a href="#" data-page="partnerships"><i class="fas fa-handshake"></i> Partnerships</a>
+                        <a href="#" data-page="contact"><i class="fas fa-envelope"></i> Contact</a>
+                    </div>
+                </div>
+                <div class="lang-switch">
+                    <button class="lang-btn active" data-lang="en">EN</button>
+                    <button class="lang-btn" data-lang="pt">PT</button>
+                    <button class="lang-btn" data-lang="fr">FR</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Dropdown Navigation -->
+        <div class="mobile-nav" id="mobileNav">
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-header"><i class="fas fa-home"></i> Home <i class="fas fa-chevron-down"></i></div>
+                <div class="mobile-dropdown-content">
+                    <a href="#" data-page="home"><i class="fas fa-home"></i> Home</a>
+                    <a href="#" data-page="about"><i class="fas fa-info-circle"></i> Know Us</a>
+                    <a href="#" data-page="mission"><i class="fas fa-bullseye"></i> Mission, Vision & Values</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-header"><i class="fas fa-concierge-bell"></i> Services <i class="fas fa-chevron-down"></i></div>
+                <div class="mobile-dropdown-content">
+                    <a href="#" data-page="services"><i class="fas fa-concierge-bell"></i> Services</a>
+                    <a href="#" data-page="why"><i class="fas fa-globe"></i> Why Choose LEA</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <div class="mobile-nav-header"><i class="fas fa-handshake"></i> Partnerships <i class="fas fa-chevron-down"></i></div>
+                <div class="mobile-dropdown-content">
+                    <a href="#" data-page="partnerships"><i class="fas fa-handshake"></i> Partnerships</a>
+                    <a href="#" data-page="contact"><i class="fas fa-envelope"></i> Contact</a>
+                </div>
+            </div>
+            <div class="lang-switch" style="margin: 16px 20px; justify-content: center;">
+                <button class="lang-btn active" data-lang="en">EN</button>
+                <button class="lang-btn" data-lang="pt">PT</button>
+                <button class="lang-btn" data-lang="fr">FR</button>
+            </div>
+        </div>
+    </div>
+</header>
+
+<main>
+    <!-- ==================== HOME PAGE ==================== -->
+    <section id="home" class="page-section active-page">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-plane-departure"></i> <span data-key="hero_badge">Premier Air Mobility</span></div>
+                    <h1><span data-key="hero_title">Legacy Executive Aviation</span></h1>
+                    <div class="hero-tagline"><span data-key="hero_tagline">"Legacy is in the air"</span></div>
+                    <p class="hero-desc"><span data-key="hero_desc">Transforming aviation accessibility across Southern Africa with safe, efficient, and premium air mobility solutions.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-primary" data-page="contact"><i class="fas fa-paper-plane"></i> <span data-key="btn_request">Request a Flight</span></a>
+                        <a href="#" class="btn btn-outline" data-page="partnerships"><i class="fas fa-handshake"></i> <span data-key="btn_partner">Partner With Us</span></a>
+                        <a href="#" class="btn btn-light" data-page="contact"><i class="fas fa-phone-alt"></i> <span data-key="btn_contact">Contact Us</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="LEA Fleet" onerror="this.src='https://placehold.co/800x500?text=Premium+Fleet'">
+                </div>
+            </div>
+        </div>
+
+        <div class="container fade-up">
+            <div class="page-panel">
+                <h2 class="section-title"><span data-key="about_title">About Legacy</span></h2>
+                <p><span data-key="about_text">Legacy Executive Aviation is redefining air mobility in the SADC region by providing seamless access to private, executive, and commercial aviation services. With access to over 100 aircraft and a highly experienced leadership team, LEA delivers unmatched reliability and operational excellence. Headquarters in Angola, with operating bases in Namibia, Zambia, and DRC.</span></p>
+            </div>
+        </div>
+
+        <div class="container fade-up">
+            <h2 class="section-title"><span data-key="whychoose_title">Why Choose LEA</span></h2>
+            <div class="highlights-grid">
+                <div class="highlight-card"><div class="highlight-icon"><i class="fas fa-plane"></i></div><h3 data-key="stat_aircraft">100+</h3><p data-key="stat_aircraft_label">Aircraft Access</p></div>
+                <div class="highlight-card"><div class="highlight-icon"><i class="fas fa-chart-line"></i></div><h3 data-key="stat_years">30+ Years</h3><p data-key="stat_years_label">Industry Experience</p></div>
+                <div class="highlight-card"><div class="highlight-icon"><i class="fas fa-clock"></i></div><h3 data-key="stat_hours">15,000+</h3><p data-key="stat_hours_label">Pilot Flight Hours</p></div>
+                <div class="highlight-card"><div class="highlight-icon"><i class="fas fa-map-marked-alt"></i></div><h3 data-key="stat_region">SADC</h3><p data-key="stat_region_label">Regional Coverage</p></div>
+            </div>
+        </div>
+
+        <div class="container fade-up">
+            <h2 class="section-title"><span data-key="services_title">Premium Services</span></h2>
+            <div class="services-grid">
+                <div class="service-card"><div class="service-icon"><i class="fas fa-champagne-glasses"></i></div><h3 data-key="service1_title">Private Charter</h3><p data-key="service1_desc">Tailored luxury flights</p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-user-tie"></i></div><h3 data-key="service2_title">Executive Aviation</h3><p data-key="service2_desc">Corporate & VIP travel</p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-freight-container"></i></div><h3 data-key="service3_title">Commercial Aviation</h3><p data-key="service3_desc">Solutions & cargo</p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-truck-ramp-box"></i></div><h3 data-key="service4_title">Air Mobility Logistics</h3><p data-key="service4_desc">Efficient supply chain</p></div>
+            </div>
+            <div class="explore-link" style="text-align: center; margin-top: 40px;">
+                <a href="#" data-page="services" style="font-weight: 700; font-size: 1.2rem; color: var(--aviation-blue); text-decoration: none; border-bottom: 2px solid var(--gold-yellow);"><span data-key="explore_link">Explore Our Services</span> <i class="fas fa-arrow-right"></i></a>
+            </div>
+        </div>
+
+        <div class="gallery-section fade-up">
+            <div class="container">
+                <div style="text-align: center;">
+                    <h2 class="section-title" style="display: inline-block;"><span data-key="gallery_title">Fleet & Moments</span></h2>
+                    <p style="margin-top: 8px;"><i class="fas fa-camera-retro"></i> <span data-key="gallery_subtitle">Experience excellence through our dynamic showcase</span></p>
+                </div>
+                <div class="carousel-container">
+                    <button class="carousel-btn btn-prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+                    <div class="carousel-track" id="carouselTrack">
+                        <div class="carousel-slide"><img src="img/7.jpg" alt="Fleet" onerror="this.src='https://placehold.co/800x500?text=Image+1'"></div>
+                        <div class="carousel-slide"><img src="img/8.jpg" alt="Fleet" onerror="this.src='https://placehold.co/800x500?text=Image+2'"></div>
+                        <div class="carousel-slide"><img src="img/9.jpg" alt="Fleet" onerror="this.src='https://placehold.co/800x500?text=Image+3'"></div>
+                        <div class="carousel-slide"><img src="img/10.jpg" alt="Fleet" onerror="this.src='https://placehold.co/800x500?text=Image+4'"></div>
+                        <div class="carousel-slide"><img src="img/11.jpg" alt="Fleet" onerror="this.src='https://placehold.co/800x500?text=Image+5'"></div>
+                    </div>
+                    <button class="carousel-btn btn-next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="dot-container" id="dotContainer"></div>
+                <div class="slideshow-caption" id="carouselCaption">
+                    <i class="fas fa-plane"></i> <span data-key="caption_default">Premium fleet at your service</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT PAGE ==================== -->
+    <section id="about" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-plane-departure"></i> <span data-key="about_hero_badge">Premium Air Mobility</span></div>
+                    <h1><span data-key="about_hero_title">About Legacy Executive Aviation</span></h1>
+                    <div class="hero-tagline"><span data-key="about_hero_tagline">A bold vision for aviation across Southern Africa</span></div>
+                    <p class="hero-desc"><span data-key="about_hero_desc">Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region by delivering safe, efficient, and premium air mobility solutions. Headquarters in Angola. Operating bases in Namibia, Zambia, and DRC.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="about_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="mission"><i class="fas fa-info-circle"></i> <span data-key="about_btn_learn">Learn About Us</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Legacy Executive Aviation" onerror="this.src='https://placehold.co/800x500?text=Legacy+Executive+Aviation';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <div class="page-panel">
+                <h2 class="section-title"><span data-key="who_title">Who We Are</span></h2>
+                <p><span data-key="who_text">Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region. We exist to close the aviation accessibility gap in Southern Africa by delivering safe, efficient, and premium air mobility solutions. Our headquarters is in Angola, with operating bases in Namibia, Zambia, and DRC.</span></p>
+                <div class="info-grid">
+                    <div class="info-card">
+                        <h3><span data-key="strength_title">Our Strength</span></h3>
+                        <p><span data-key="strength_text">With immediate access to more than 100 aircraft and a leadership team composed of aviation professionals with over 30 years of experience — including pilots exceeding 15,000 flight hours — our operational capacity and technical expertise set us apart in the regional market.</span></p>
+                    </div>
+                    <div class="info-card">
+                        <h3><span data-key="impact_title">Regional Impact</span></h3>
+                        <p><span data-key="impact_text">We are committed to raising the standard of aviation in Southern Africa through scalable services, dependable flight operations, and a customer-first experience designed for business and executive travelers.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== MISSION, VISION & VALUES PAGE ==================== -->
+    <section id="mission" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-bullseye"></i> <span data-key="mission_hero_badge">Mission, Vision & Values</span></div>
+                    <h1><span data-key="mission_hero_title">Driving aviation leadership across Southern Africa</span></h1>
+                    <div class="hero-tagline"><span data-key="mission_hero_tagline">Committed to safety, excellence, integrity, innovation, and partnerships.</span></div>
+                    <p class="hero-desc"><span data-key="mission_hero_desc">Our purpose is to deliver reliable, world-class aviation services that answer the evolving mobility needs of businesses, governments, investors, and communities across the SADC region.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="mission_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="why"><i class="fas fa-lightbulb"></i> <span data-key="mission_btn_values">Explore Our Values</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Mission Vision Values" onerror="this.src='https://placehold.co/800x500?text=Mission+Vision+Values';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <div class="page-panel">
+                <h2 class="section-title"><span data-key="mission_title">Mission</span></h2>
+                <p><span data-key="mission_text">To provide reliable, world-class aviation services that directly respond to the evolving mobility needs of businesses, governments, investors, and communities within the SADC region.</span></p>
+                
+                <h2 class="section-title" style="margin-top: 48px;"><span data-key="vision_title">Vision</span></h2>
+                <p><span data-key="vision_text">To become the benchmark aviation solutions provider in Southern Africa, recognized for safety, operational excellence, and strategic connectivity across the continent.</span></p>
+                
+                <h2 class="section-title" style="margin-top: 48px;"><span data-key="values_title">Core Values</span></h2>
+                <div class="info-grid">
+                    <div class="info-card"><div class="highlight-icon"><i class="fas fa-shield-alt"></i></div><h3><span data-key="value_safety_title">Safety</span></h3><p><span data-key="value_safety_text">Uncompromising operational standards that prioritize the wellbeing of every passenger and crew member.</span></p></div>
+                    <div class="info-card"><div class="highlight-icon"><i class="fas fa-trophy"></i></div><h3><span data-key="value_excellence_title">Excellence</span></h3><p><span data-key="value_excellence_text">Premium service delivery at every touchpoint, ensuring a seamless and memorable experience.</span></p></div>
+                    <div class="info-card"><div class="highlight-icon"><i class="fas fa-handshake"></i></div><h3><span data-key="value_integrity_title">Integrity</span></h3><p><span data-key="value_integrity_text">Transparency, accountability, and professionalism in all our business relationships.</span></p></div>
+                    <div class="info-card"><div class="highlight-icon"><i class="fas fa-lightbulb"></i></div><h3><span data-key="value_innovation_title">Innovation</span></h3><p><span data-key="value_innovation_text">Adaptive solutions that leverage cutting-edge technology for a growing region.</span></p></div>
+                    <div class="info-card"><div class="highlight-icon"><i class="fas fa-users"></i></div><h3><span data-key="value_partnership_title">Partnership</span></h3><p><span data-key="value_partnership_text">Long-term collaboration with stakeholders to build sustainable aviation ecosystems.</span></p></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES PAGE ==================== -->
+    <section id="services" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-concierge-bell"></i> <span data-key="services_hero_badge">Our Services</span></div>
+                    <h1><span data-key="services_hero_title">Premium aviation services for every mission.</span></h1>
+                    <div class="hero-tagline"><span data-key="services_hero_tagline">Luxury travel, executive mobility, commercial support and cargo solutions across the SADC region.</span></div>
+                    <p class="hero-desc"><span data-key="services_hero_desc">Legacy Executive Aviation delivers an integrated aviation portfolio to meet the needs of individuals, corporations, governments, and large-scale operators.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="services_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="why"><i class="fas fa-globe"></i> <span data-key="services_btn_whylea">Why Choose LEA</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Legacy Services" onerror="this.src='https://placehold.co/800x500?text=Legacy+Services';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <h2 class="section-title"><span data-key="services_list_title">What We Offer</span></h2>
+            <div class="services-grid">
+                <div class="service-card"><div class="service-icon"><i class="fas fa-plane"></i></div><h3><span data-key="service1_title_full">Private Aviation</span></h3><p><span data-key="service1_desc_full">Luxury, flexible, and discreet travel tailored to individuals and high-net-worth clients. Experience unparalleled comfort and personalized service on every flight.</span></p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-user-tie"></i></div><h3><span data-key="service2_title_full">Executive Aviation</span></h3><p><span data-key="service2_desc_full">Efficient air mobility solutions for business leaders and corporate organizations. Maximize productivity with seamless, time-efficient travel arrangements.</span></p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-building"></i></div><h3><span data-key="service3_title_full">Commercial Aviation Solutions</span></h3><p><span data-key="service3_desc_full">Strategic support for airlines, governments, and large-scale travel operations. Comprehensive solutions including wet leasing, ACMI, and operational support.</span></p></div>
+                <div class="service-card"><div class="service-icon"><i class="fas fa-boxes"></i></div><h3><span data-key="service4_title_full">Air Mobility & Logistics</span></h3><p><span data-key="service4_desc_full">Cargo transport, emergency response, and specialized aviation logistics across the region. Reliable supply chain solutions for time-sensitive deliveries.</span></p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE LEA PAGE ==================== -->
+    <section id="why" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-globe"></i> <span data-key="why_hero_badge">Why Choose LEA</span></div>
+                    <h1><span data-key="why_hero_title">Proven aviation leadership for Southern Africa.</span></h1>
+                    <div class="hero-tagline"><span data-key="why_hero_tagline">A trusted partner committed to safety, expertise, and tailored service.</span></div>
+                    <p class="hero-desc"><span data-key="why_hero_desc">Legacy Executive Aviation combines deep regional experience, an extensive aircraft network, and world-class standards to serve businesses, governments, and communities.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="why_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="services"><i class="fas fa-concierge-bell"></i> <span data-key="why_btn_services">Explore Services</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Why Choose LEA" onerror="this.src='https://placehold.co/800x500?text=Why+Choose+LEA';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <h2 class="section-title"><span data-key="why_section_title">The Legacy Advantage</span></h2>
+            <div class="benefits-grid">
+                <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-network-wired"></i></div><h3><span data-key="benefit1_title">Extensive aircraft network</span></h3><p><span data-key="benefit1_text">Access a broad fleet capable of serving private, executive, commercial, and cargo missions across the region.</span></p></div>
+                <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-user-check"></i></div><h3><span data-key="benefit2_title">Experienced aviation professionals</span></h3><p><span data-key="benefit2_text">Leadership and crews with proven track records, deep operational knowledge, and an unwavering focus on quality.</span></p></div>
+                <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-map-marker-alt"></i></div><h3><span data-key="benefit3_title">Regional expertise in SADC</span></h3><p><span data-key="benefit3_text">Local market understanding and air mobility solutions designed specifically for Southern African routes and regulations.</span></p></div>
+                <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-shield-alt"></i></div><h3><span data-key="benefit4_title">Commitment to safety and excellence</span></h3><p><span data-key="benefit4_text">Every flight and operation adheres to the highest standards of safety, compliance, and premium service delivery.</span></p></div>
+                <div class="benefit-card"><div class="benefit-icon"><i class="fas fa-handshake"></i></div><h3><span data-key="benefit5_title">Tailored aviation solutions</span></h3><p><span data-key="benefit5_text">Customized mobility plans that respond to the unique needs of clients, projects, and strategic partners.</span></p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PARTNERSHIPS PAGE ==================== -->
+    <section id="partnerships" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-handshake"></i> <span data-key="partnerships_hero_badge">Work With Us</span></div>
+                    <h1><span data-key="partnerships_hero_title">Expand aviation access across Southern Africa.</span></h1>
+                    <div class="hero-tagline"><span data-key="partnerships_hero_tagline">We collaborate with governments, corporations, investors, and aviation stakeholders to improve connectivity and service delivery throughout the region.</span></div>
+                    <p class="hero-desc"><span data-key="partnerships_hero_desc">Legacy Executive Aviation provides strategic partnership opportunities that support sustainable growth, infrastructure development, and stronger aviation networks.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="partnerships_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="contact"><i class="fas fa-envelope"></i> <span data-key="partnerships_btn_contact">Contact Us</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Partnerships" onerror="this.src='https://placehold.co/800x500?text=Partnerships';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <h2 class="section-title"><span data-key="partnerships_title">Partnership Opportunities</span></h2>
+            <div class="partners-grid">
+                <div class="partner-card"><div class="partner-icon"><i class="fas fa-landmark"></i></div><h3><span data-key="partner1_title">Government Aviation Support</span></h3><p><span data-key="partner1_text">Strategic partnerships with government entities to enhance national aviation infrastructure, emergency response, and public sector mobility solutions.</span></p></div>
+                <div class="partner-card"><div class="partner-icon"><i class="fas fa-briefcase"></i></div><h3><span data-key="partner2_title">Corporate Travel Programs</span></h3><p><span data-key="partner2_text">Tailored aviation solutions for corporations seeking efficient, reliable, and premium travel arrangements for executives and staff across the region.</span></p></div>
+                <div class="partner-card"><div class="partner-icon"><i class="fas fa-chart-line"></i></div><h3><span data-key="partner3_title">Investment Collaborations</span></h3><p><span data-key="partner3_text">Join us in expanding aviation accessibility through strategic investments that drive growth, innovation, and operational excellence.</span></p></div>
+                <div class="partner-card"><div class="partner-icon"><i class="fas fa-hard-hat"></i></div><h3><span data-key="partner4_title">Infrastructure Development</span></h3><p><span data-key="partner4_text">Partner with LEA to develop and enhance aviation infrastructure, including maintenance facilities, FBOs, and regional connectivity hubs.</span></p></div>
+            </div>
+            <div class="benefits-panel" style="background: linear-gradient(135deg, var(--silver-light) 0%, #ffffff 100%); border-radius: 32px; padding: 40px; margin-top: 40px;">
+                <h2 class="section-title"><span data-key="benefits_title">Why Partner With LEA</span></h2>
+                <ul class="benefits-list" style="list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px;">
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list1">Access to over 100 aircraft across diverse operational categories</span></li>
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list2">30+ years of combined aviation leadership experience</span></li>
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list3">Deep regional expertise in the SADC market</span></li>
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list4">Commitment to safety and regulatory excellence</span></li>
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list5">Flexible partnership models tailored to your needs</span></li>
+                    <li style="padding-left: 32px; position: relative;"><i class="fas fa-check-circle" style="position: absolute; left: 0; top: 2px; color: var(--gold-yellow);"></i> <span data-key="benefit_list6">Proven track record of successful collaborations</span></li>
+                </ul>
+            </div>
+            <div class="cta-section" style="text-align: center; background: linear-gradient(135deg, var(--aviation-blue), var(--aviation-deep)); border-radius: 32px; padding: 60px 40px; margin-top: 40px; color: white;">
+                <h3 style="font-size: 2rem; margin-bottom: 16px;"><span data-key="cta_title">Ready to Partner With Us?</span></h3>
+                <p style="margin-bottom: 28px;"><span data-key="cta_text">Let's discuss how we can work together to elevate aviation across Southern Africa.</span></p>
+                <a href="#" class="btn btn-primary" data-page="contact" style="background: var(--gold-yellow); color: var(--aviation-deep);"><i class="fas fa-handshake"></i> <span data-key="cta_button">Start a Partnership Conversation</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT PAGE ==================== -->
+    <section id="contact" class="page-section">
+        <div class="hero fade-up">
+            <div class="container hero-grid">
+                <div class="hero-content">
+                    <div class="hero-badge"><i class="fas fa-envelope"></i> <span data-key="contact_hero_badge">Get In Touch</span></div>
+                    <h1><span data-key="contact_hero_title">Let's start a conversation.</span></h1>
+                    <div class="hero-tagline"><span data-key="contact_hero_tagline">Reach out to our team for inquiries, partnerships, or flight requests.</span></div>
+                    <p class="hero-desc"><span data-key="contact_hero_desc">We're here to answer your questions and provide the premium aviation solutions you need.</span></p>
+                    <div class="btn-group">
+                        <a href="#" class="btn btn-outline" data-page="home"><i class="fas fa-home"></i> <span data-key="contact_btn_home">Return Home</span></a>
+                        <a href="#" class="btn btn-primary" data-page="services"><i class="fas fa-concierge-bell"></i> <span data-key="contact_btn_services">Explore Services</span></a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <img src="img/1.jpg" alt="Contact Us" onerror="this.src='https://placehold.co/800x500?text=Contact+Us';">
+                </div>
+            </div>
+        </div>
+        <div class="container fade-up">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2 class="section-title" style="margin-bottom: 32px;"><span data-key="contact_info_title">Contact Information</span></h2>
+                    <div class="contact-detail"><i class="fas fa-envelope"></i><div><strong><span data-key="contact_email_label">Email</span></strong><br><span data-key="contact_email">info.legacyexecution@gmail.com</span></div></div>
+                    <div class="contact-detail"><i class="fas fa-phone-alt"></i><div><strong><span data-key="contact_phone_label">Phone</span></strong><br><span data-key="contact_phone">+244 922 824 783 / +33 6 50 13 29 00</span></div></div>
+                    <div class="contact-detail"><i class="fas fa-map-marker-alt"></i><div><strong><span data-key="contact_address_label">Office</span></strong><br><span data-key="contact_address">Angola, Luanda, Namibia, Windhoek, France, Paris</span></div></div>
+                    <div class="contact-detail"><i class="fas fa-clock"></i><div><strong><span data-key="contact_hours_label">Business Hours</span></strong><br><span data-key="contact_hours">24/7 - Always available for your aviation needs</span></div></div>
+                </div>
+                <div class="contact-form">
+                    <h2 class="section-title" style="margin-bottom: 32px;"><span data-key="contact_form_title">Send a Message</span></h2>
+                    <form id="contactForm">
+                        <div class="form-group"><input type="text" placeholder="Your Name" id="contactName" required></div>
+                        <div class="form-group"><input type="email" placeholder="Email Address" id="contactEmail" required></div>
+                        <div class="form-group"><input type="tel" placeholder="Phone Number" id="contactPhone"></div>
+                        <div class="form-group"><select id="contactInquiry"><option>Inquiry Type</option><option>Flight Request</option><option>Partnership Opportunity</option><option>General Question</option></select></div>
+                        <div class="form-group"><textarea rows="5" placeholder="Your Message" id="contactMessage"></textarea></div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%;"><i class="fas fa-paper-plane"></i> <span data-key="contact_send">Send Message</span></button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer class="page-footer">
+    <div class="container">
+        <div class="footer-inner">
+            <div>
+                <img src="img/logo.jpg" alt="LEA" style="height: 52px; width: 52px; border-radius: 50%; object-fit: cover; border: 2px solid var(--gold-yellow);" onerror="this.src='https://placehold.co/100x100?text=LEA';">
+                <p style="margin-top: 12px;"><i class="fas fa-building"></i> <span data-key="footer_tagline">Legacy Executive Aviation<br>Elevating Southern Africa</span></p>
+            </div>
+            <div class="footer-links">
+                <a href="#" data-page="home"><i class="fas fa-home"></i> <span data-key="footer_home">Home</span></a>
+                <a href="#" data-page="about"><i class="fas fa-info-circle"></i> <span data-key="footer_knowus">Know Us</span></a>
+                <a href="#" data-page="mission"><i class="fas fa-bullseye"></i> <span data-key="footer_mvv">Mission, Vision & Values</span></a>
+                <a href="#" data-page="services"><i class="fas fa-concierge-bell"></i> <span data-key="footer_services">Services</span></a>
+                <a href="#" data-page="why"><i class="fas fa-globe"></i> <span data-key="footer_whylea">Why Choose LEA</span></a>
+                <a href="#" data-page="partnerships"><i class="fas fa-handshake"></i> <span data-key="footer_partnerships">Partnerships</span></a>
+                <a href="#" data-page="contact"><i class="fas fa-envelope"></i> <span data-key="footer_contact">Contact</span></a>
+            </div>
+            <div>
+                <div class="footer-contact-item"><i class="fas fa-envelope"></i> <span data-key="footer_email">info.legacyexecution@gmail.com</span></div>
+                <div class="footer-contact-item"><i class="fas fa-phone-alt"></i> <span data-key="footer_phone">+244 922 824 783 / +33 6 50 13 29 00</span></div>
+                <div class="footer-contact-item"><i class="fas fa-map-marker-alt"></i> <span data-key="footer_address">Angola, Luanda, Namibia, Windhoek, France, Paris</span></div>
+            </div>
+        </div>
+        <div class="copyright"><p><i class="far fa-copyright"></i> <span data-key="footer_copyright">2026 Legacy Executive Aviation — "Legacy is in the air" — All rights reserved</span></p></div>
+    </div>
+</footer>
+
+<script>
+    // ==================== LOADER FUNCTION ====================
+    const loader = document.getElementById('loaderWrapper');
+    
+    function showLoader() {
+        loader.classList.remove('hide-loader');
+        loader.classList.add('show-loader');
+        loader.style.display = 'flex';
+    }
+    
+    function hideLoader() {
+        loader.classList.add('hide-loader');
+        setTimeout(() => {
+            loader.style.display = 'none';
+        }, 500);
+    }
+
+    // ==================== PAGE NAVIGATION WITH LOADER ====================
+    function showPage(pageId) {
+        showLoader();
+        
+        // Simulate loading delay for smooth transition
+        setTimeout(() => {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active-page');
+            });
+            document.getElementById(pageId).classList.add('active-page');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            localStorage.setItem('currentPage', pageId);
+            
+            // Re-trigger fade-in animations on new page
+            const fadeElements = document.querySelectorAll('.fade-up');
+            fadeElements.forEach(el => el.classList.remove('revealed'));
+            setTimeout(() => {
+                const observer = new IntersectionObserver((entries) => {
+                    entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
+                }, { threshold: 0.12 });
+                fadeElements.forEach(el => observer.observe(el));
+            }, 100);
+            
+            hideLoader();
+        }, 400);
+    }
+
+    // Attach click handlers to all navigation links
+    document.querySelectorAll('[data-page]').forEach(link => {
+        link.addEventListener('click', (e) => {
+            e.preventDefault();
+            const pageId = link.getAttribute('data-page');
+            showPage(pageId);
+            
+            // Close mobile menu if open
+            const mobileNav = document.getElementById('mobileNav');
+            if (mobileNav.classList.contains('active')) {
+                mobileNav.classList.remove('active');
+                const toggleIcon = document.querySelector('#mobileMenuBtn i');
+                if (toggleIcon) {
+                    toggleIcon.classList.remove('fa-times');
+                    toggleIcon.classList.add('fa-bars');
+                }
+            }
+        });
+    });
+
+    // ==================== MULTI-LANGUAGE TRANSLATIONS ====================
+    const translations = {
+        en: {
+            hero_badge: "Premier Air Mobility", hero_title: "Legacy Executive Aviation", hero_tagline: "\"Legacy is in the air\"",
+            hero_desc: "Transforming aviation accessibility across Southern Africa with safe, efficient, and premium air mobility solutions.",
+            btn_request: "Request a Flight", btn_partner: "Partner With Us", btn_contact: "Contact Us",
+            about_title: "About Legacy", about_text: "Legacy Executive Aviation is redefining air mobility in the SADC region by providing seamless access to private, executive, and commercial aviation services. With access to over 100 aircraft and a highly experienced leadership team, LEA delivers unmatched reliability and operational excellence. Headquarters in Angola, with operating bases in Namibia, Zambia, and DRC.",
+            whychoose_title: "Why Choose LEA", stat_aircraft: "100+", stat_aircraft_label: "Aircraft Access",
+            stat_years: "30+ Years", stat_years_label: "Industry Experience", stat_hours: "15,000+", stat_hours_label: "Pilot Flight Hours",
+            stat_region: "SADC", stat_region_label: "Regional Coverage", services_title: "Premium Services",
+            service1_title: "Private Charter", service1_desc: "Tailored luxury flights", service2_title: "Executive Aviation", service2_desc: "Corporate & VIP travel",
+            service3_title: "Commercial Aviation", service3_desc: "Solutions & cargo", service4_title: "Air Mobility Logistics", service4_desc: "Efficient supply chain",
+            explore_link: "Explore Our Services", gallery_title: "Fleet & Moments", gallery_subtitle: "Experience excellence through our dynamic showcase", caption_default: "Premium fleet at your service",
+            
+            about_hero_badge: "Premium Air Mobility", about_hero_title: "About Legacy Executive Aviation", about_hero_tagline: "A bold vision for aviation across Southern Africa",
+            about_hero_desc: "Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region by delivering safe, efficient, and premium air mobility solutions. Headquarters in Angola. Operating bases in Namibia, Zambia, and DRC.",
+            about_btn_home: "Return Home", about_btn_learn: "Learn About Us",
+            who_title: "Who We Are", who_text: "Legacy Executive Aviation is strategically positioned to transform aviation across the SADC region. We exist to close the aviation accessibility gap in Southern Africa by delivering safe, efficient, and premium air mobility solutions. Our headquarters is in Angola, with operating bases in Namibia, Zambia, and DRC.",
+            strength_title: "Our Strength", strength_text: "With immediate access to more than 100 aircraft and a leadership team composed of aviation professionals with over 30 years of experience — including pilots exceeding 15,000 flight hours — our operational capacity and technical expertise set us apart in the regional market.",
+            impact_title: "Regional Impact", impact_text: "We are committed to raising the standard of aviation in Southern Africa through scalable services, dependable flight operations, and a customer-first experience designed for business and executive travelers.",
+            
+            mission_hero_badge: "Mission, Vision & Values", mission_hero_title: "Driving aviation leadership across Southern Africa",
+            mission_hero_tagline: "Committed to safety, excellence, integrity, innovation, and partnerships.",
+            mission_hero_desc: "Our purpose is to deliver reliable, world-class aviation services that answer the evolving mobility needs of businesses, governments, investors, and communities across the SADC region.",
+            mission_btn_home: "Return Home", mission_btn_values: "Explore Our Values",
+            mission_title: "Mission", mission_text: "To provide reliable, world-class aviation services that directly respond to the evolving mobility needs of businesses, governments, investors, and communities within the SADC region.",
+            vision_title: "Vision", vision_text: "To become the benchmark aviation solutions provider in Southern Africa, recognized for safety, operational excellence, and strategic connectivity across the continent.",
+            values_title: "Core Values",
+            value_safety_title: "Safety", value_safety_text: "Uncompromising operational standards that prioritize the wellbeing of every passenger and crew member.",
+            value_excellence_title: "Excellence", value_excellence_text: "Premium service delivery at every touchpoint, ensuring a seamless and memorable experience.",
+            value_integrity_title: "Integrity", value_integrity_text: "Transparency, accountability, and professionalism in all our business relationships.",
+            value_innovation_title: "Innovation", value_innovation_text: "Adaptive solutions that leverage cutting-edge technology for a growing region.",
+            value_partnership_title: "Partnership", value_partnership_text: "Long-term collaboration with stakeholders to build sustainable aviation ecosystems.",
+            
+            services_hero_badge: "Our Services", services_hero_title: "Premium aviation services for every mission.",
+            services_hero_tagline: "Luxury travel, executive mobility, commercial support and cargo solutions across the SADC region.",
+            services_hero_desc: "Legacy Executive Aviation delivers an integrated aviation portfolio to meet the needs of individuals, corporations, governments, and large-scale operators.",
+            services_btn_home: "Return Home", services_btn_whylea: "Why Choose LEA",
+            services_list_title: "What We Offer",
+            service1_title_full: "Private Aviation", service1_desc_full: "Luxury, flexible, and discreet travel tailored to individuals and high-net-worth clients. Experience unparalleled comfort and personalized service on every flight.",
+            service2_title_full: "Executive Aviation", service2_desc_full: "Efficient air mobility solutions for business leaders and corporate organizations. Maximize productivity with seamless, time-efficient travel arrangements.",
+            service3_title_full: "Commercial Aviation Solutions", service3_desc_full: "Strategic support for airlines, governments, and large-scale travel operations. Comprehensive solutions including wet leasing, ACMI, and operational support.",
+            service4_title_full: "Air Mobility & Logistics", service4_desc_full: "Cargo transport, emergency response, and specialized aviation logistics across the region. Reliable supply chain solutions for time-sensitive deliveries.",
+            
+            why_hero_badge: "Why Choose LEA", why_hero_title: "Proven aviation leadership for Southern Africa.",
+            why_hero_tagline: "A trusted partner committed to safety, expertise, and tailored service.",
+            why_hero_desc: "Legacy Executive Aviation combines deep regional experience, an extensive aircraft network, and world-class standards to serve businesses, governments, and communities.",
+            why_btn_home: "Return Home", why_btn_services: "Explore Services",
+            why_section_title: "The Legacy Advantage",
+            benefit1_title: "Extensive aircraft network", benefit1_text: "Access a broad fleet capable of serving private, executive, commercial, and cargo missions across the region.",
+            benefit2_title: "Experienced aviation professionals", benefit2_text: "Leadership and crews with proven track records, deep operational knowledge, and an unwavering focus on quality.",
+            benefit3_title: "Regional expertise in SADC", benefit3_text: "Local market understanding and air mobility solutions designed specifically for Southern African routes and regulations.",
+            benefit4_title: "Commitment to safety and excellence", benefit4_text: "Every flight and operation adheres to the highest standards of safety, compliance, and premium service delivery.",
+            benefit5_title: "Tailored aviation solutions", benefit5_text: "Customized mobility plans that respond to the unique needs of clients, projects, and strategic partners.",
+            
+            partnerships_hero_badge: "Work With Us", partnerships_hero_title: "Expand aviation access across Southern Africa.",
+            partnerships_hero_tagline: "We collaborate with governments, corporations, investors, and aviation stakeholders to improve connectivity and service delivery throughout the region.",
+            partnerships_hero_desc: "Legacy Executive Aviation provides strategic partnership opportunities that support sustainable growth, infrastructure development, and stronger aviation networks.",
+            partnerships_btn_home: "Return Home", partnerships_btn_contact: "Contact Us",
+            partnerships_title: "Partnership Opportunities",
+            partner1_title: "Government Aviation Support", partner1_text: "Strategic partnerships with government entities to enhance national aviation infrastructure, emergency response, and public sector mobility solutions.",
+            partner2_title: "Corporate Travel Programs", partner2_text: "Tailored aviation solutions for corporations seeking efficient, reliable, and premium travel arrangements for executives and staff across the region.",
+            partner3_title: "Investment Collaborations", partner3_text: "Join us in expanding aviation accessibility through strategic investments that drive growth, innovation, and operational excellence.",
+            partner4_title: "Infrastructure Development", partner4_text: "Partner with LEA to develop and enhance aviation infrastructure, including maintenance facilities, FBOs, and regional connectivity hubs.",
+            benefits_title: "Why Partner With LEA",
+            benefit_list1: "Access to over 100 aircraft across diverse operational categories",
+            benefit_list2: "30+ years of combined aviation leadership experience",
+            benefit_list3: "Deep regional expertise in the SADC market",
+            benefit_list4: "Commitment to safety and regulatory excellence",
+            benefit_list5: "Flexible partnership models tailored to your needs",
+            benefit_list6: "Proven track record of successful collaborations",
+            cta_title: "Ready to Partner With Us?", cta_text: "Let's discuss how we can work together to elevate aviation across Southern Africa.", cta_button: "Start a Partnership Conversation",
+            
+            contact_hero_badge: "Get In Touch", contact_hero_title: "Let's start a conversation.",
+            contact_hero_tagline: "Reach out to our team for inquiries, partnerships, or flight requests.",
+            contact_hero_desc: "We're here to answer your questions and provide the premium aviation solutions you need.",
+            contact_btn_home: "Return Home", contact_btn_services: "Explore Services",
+            contact_info_title: "Contact Information", contact_email_label: "Email", contact_email: "info.legacyexecution@gmail.com",
+            contact_phone_label: "Phone", contact_phone: "+244 922 824 783 / +33 6 50 13 29 00", contact_address_label: "Office", contact_address: "Angola, Luanda, Namibia, Windhoek, France, Paris",
+            contact_hours_label: "Business Hours", contact_hours: "24/7 - Always available for your aviation needs",
+            contact_form_title: "Send a Message", contact_send: "Send Message",
+            
+            footer_tagline: "Legacy Executive Aviation<br>Elevating Southern Africa",
+            footer_home: "Home", footer_knowus: "Know Us", footer_mvv: "Mission, Vision & Values",
+            footer_services: "Services", footer_whylea: "Why Choose LEA", footer_partnerships: "Partnerships", footer_contact: "Contact",
+            footer_email: "info.legacyexecution@gmail.com", footer_phone: "+244 922 824 783 / +33 6 50 13 29 00", footer_address: "Angola, Luanda, Namibia, Windhoek, France, Paris",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy is in the air\" — All rights reserved"
+        },
+        pt: {
+            hero_badge: "Mobilidade Aérea Premium", hero_title: "Legacy Executive Aviation", hero_tagline: "\"Legacy está no ar\"",
+            hero_desc: "Transformando o acesso à aviação em toda a África Austral com soluções de mobilidade aérea seguras, eficientes e premium.",
+            btn_request: "Solicitar um Voo", btn_partner: "Seja Nosso Parceiro", btn_contact: "Contato",
+            about_title: "Sobre a Legacy", about_text: "A Legacy Executive Aviation está redefinindo a mobilidade aérea na região da SADC, fornecendo acesso contínuo a serviços de aviação privada, executiva e comercial. Com acesso a mais de 100 aeronaves e uma equipe de liderança altamente experiente, a LEA oferece confiabilidade e excelência operacional incomparáveis. Sede em Angola, com bases operacionais na Namíbia, Zâmbia e RDC.",
+            whychoose_title: "Por que escolher a LEA", stat_aircraft: "100+", stat_aircraft_label: "Aeronaves",
+            stat_years: "30+ Anos", stat_years_label: "Experiência", stat_hours: "15.000+", stat_hours_label: "Horas de Voo",
+            stat_region: "SADC", stat_region_label: "Cobertura Regional", services_title: "Serviços Premium",
+            service1_title: "Charter Privado", service1_desc: "Voos de luxo personalizados", service2_title: "Aviação Executiva", service2_desc: "Viagens corporativas e VIP",
+            service3_title: "Aviação Comercial", service3_desc: "Soluções e carga", service4_title: "Logística de Mobilidade", service4_desc: "Cadeia de suprimentos eficiente",
+            explore_link: "Explore Nossos Serviços", gallery_title: "Frota e Momentos", gallery_subtitle: "Experimente a excelência através do nosso showcase dinâmico", caption_default: "Frota premium ao seu serviço",
+            
+            about_hero_badge: "Mobilidade Aérea Premium", about_hero_title: "Sobre a Legacy Executive Aviation", about_hero_tagline: "Uma visão ousada para a aviação na África Austral",
+            about_hero_desc: "A Legacy Executive Aviation está estrategicamente posicionada para transformar a aviação na região da SADC, oferecendo soluções de mobilidade aérea seguras, eficientes e premium. Sede em Angola. Bases operacionais na Namíbia, Zâmbia e RDC.",
+            about_btn_home: "Voltar ao Início", about_btn_learn: "Saiba mais",
+            who_title: "Quem Somos", who_text: "A Legacy Executive Aviation está estrategicamente posicionada para transformar a aviação na região da SADC. Existimos para fechar a lacuna de acessibilidade à aviação na África Austral, entregando soluções de mobilidade aérea seguras, eficientes e premium. Nossa sede fica em Angola, com bases operacionais na Namíbia, Zâmbia e RDC.",
+            strength_title: "Nossa Força", strength_text: "Com acesso imediato a mais de 100 aeronaves e uma equipe de liderança composta por profissionais da aviação com mais de 30 anos de experiência — incluindo pilotos com mais de 15.000 horas de voo — nossa capacidade operacional e expertise técnica nos diferenciam no mercado regional.",
+            impact_title: "Impacto Regional", impact_text: "Estamos comprometidos em elevar o padrão da aviação na África Austral por meio de serviços escaláveis, operações de voo confiáveis e uma experiência centrada no cliente, projetada para viajantes executivos e de negócios.",
+            
+            mission_hero_badge: "Missão, Visão e Valores", mission_hero_title: "Liderança na aviação em toda a África Austral",
+            mission_hero_tagline: "Comprometidos com segurança, excelência, integridade, inovação e parcerias.",
+            mission_hero_desc: "Nosso propósito é fornecer serviços de aviação confiáveis e de classe mundial que atendam às necessidades de mobilidade em evolução de empresas, governos, investidores e comunidades em toda a região da SADC.",
+            mission_btn_home: "Voltar ao Início", mission_btn_values: "Explore Nossos Valores",
+            mission_title: "Missão", mission_text: "Fornecer serviços de aviação confiáveis e de classe mundial que respondam diretamente às necessidades de mobilidade em evolução de empresas, governos, investidores e comunidades na região da SADC.",
+            vision_title: "Visão", vision_text: "Tornar-se o fornecedor de soluções de aviação de referência na África Austral, reconhecido pela segurança, excelência operacional e conectividade estratégica em todo o continente.",
+            values_title: "Valores Fundamentais",
+            value_safety_title: "Segurança", value_safety_text: "Padrões operacionais inegociáveis que priorizam o bem-estar de cada passageiro e membro da tripulação.",
+            value_excellence_title: "Excelência", value_excellence_text: "Prestação de serviço premium em todos os pontos de contato, garantindo uma experiência perfeita e memorável.",
+            value_integrity_title: "Integridade", value_integrity_text: "Transparência, responsabilidade e profissionalismo em todas as nossas relações comerciais.",
+            value_innovation_title: "Inovação", value_innovation_text: "Soluções adaptáveis que aproveitam tecnologia de ponta para uma região em crescimento.",
+            value_partnership_title: "Parceria", value_partnership_text: "Colaboração de longo prazo com as partes interessadas para construir ecossistemas de aviação sustentáveis.",
+            
+            services_hero_badge: "Nossos Serviços", services_hero_title: "Serviços de aviação premium para cada missão.",
+            services_hero_tagline: "Viagens de luxo, mobilidade executiva, suporte comercial e soluções de carga na região SADC.",
+            services_hero_desc: "A Legacy Executive Aviation oferece um portfólio de aviação integrado para atender às necessidades de indivíduos, corporações, governos e grandes operadores.",
+            services_btn_home: "Início", services_btn_whylea: "Por que escolher a LEA",
+            services_list_title: "O Que Oferecemos",
+            service1_title_full: "Aviação Privada", service1_desc_full: "Viagens luxuosas, flexíveis e discretas adaptadas a clientes individuais e de alto patrimônio. Experimente conforto incomparável e serviço personalizado em cada voo.",
+            service2_title_full: "Aviação Executiva", service2_desc_full: "Soluções eficientes de mobilidade aérea para líderes empresariais e organizações corporativas. Maximize a produtividade com viagens rápidas e integradas.",
+            service3_title_full: "Soluções de Aviação Comercial", service3_desc_full: "Suporte estratégico para companhias aéreas, governos e operações de viagem em grande escala. Soluções abrangentes que incluem wet leasing, ACMI e suporte operacional.",
+            service4_title_full: "Mobilidade Aérea e Logística", service4_desc_full: "Transporte de carga, resposta a emergências e logística aérea especializada em toda a região. Soluções confiáveis de cadeia de suprimentos para entregas críticas.",
+            
+            why_hero_badge: "Por que escolher a LEA", why_hero_title: "Liderança aeronáutica comprovada para a África Austral.",
+            why_hero_tagline: "Um parceiro confiável comprometido com segurança, experiência e serviço sob medida.",
+            why_hero_desc: "A Legacy Executive Aviation combina profunda experiência regional, uma ampla rede de aeronaves e padrões de classe mundial para atender empresas, governos e comunidades.",
+            why_btn_home: "Voltar ao Início", why_btn_services: "Explorar Serviços",
+            why_section_title: "A Vantagem Legacy",
+            benefit1_title: "Rede extensa de aeronaves", benefit1_text: "Acesse uma frota ampla capaz de atender missões privadas, executivas, comerciais e de carga na região.",
+            benefit2_title: "Profissionais de aviação experientes", benefit2_text: "Liderança e tripulações com histórico comprovado, profundo conhecimento operacional e foco inabalável na qualidade.",
+            benefit3_title: "Especialização regional na SADC", benefit3_text: "Compreensão do mercado local e soluções de mobilidade aérea projetadas especificamente para rotas e regulamentações da África Austral.",
+            benefit4_title: "Compromisso com segurança e excelência", benefit4_text: "Cada voo e operação segue os mais altos padrões de segurança, conformidade e prestação de serviço premium.",
+            benefit5_title: "Soluções de aviação personalizadas", benefit5_text: "Planos de mobilidade personalizados que respondem às necessidades exclusivas de clientes, projetos e parceiros estratégicos.",
+            
+            partnerships_hero_badge: "Trabalhe Conosco", partnerships_hero_title: "Expanda o acesso à aviação em toda a África Austral.",
+            partnerships_hero_tagline: "Colaboramos com governos, corporações, investidores e partes interessadas da aviação para melhorar a conectividade e a prestação de serviços em toda a região.",
+            partnerships_hero_desc: "A Legacy Executive Aviation oferece oportunidades de parceria estratégica que apoiam o crescimento sustentável, o desenvolvimento de infraestrutura e redes de aviação mais fortes.",
+            partnerships_btn_home: "Voltar ao Início", partnerships_btn_contact: "Contate-nos",
+            partnerships_title: "Oportunidades de Parceria",
+            partner1_title: "Suporte Governamental à Aviação", partner1_text: "Parcerias estratégicas com entidades governamentais para melhorar a infraestrutura de aviação nacional, resposta a emergências e soluções de mobilidade do setor público.",
+            partner2_title: "Programas de Viagens Corporativas", partner2_text: "Soluções de aviação personalizadas para empresas que buscam arranjos de viagem eficientes, confiáveis e premium para executivos e funcionários em toda a região.",
+            partner3_title: "Colaborações de Investimento", partner3_text: "Junte-se a nós na expansão da acessibilidade da aviação por meio de investimentos estratégicos que impulsionam o crescimento, a inovação e a excelência operacional.",
+            partner4_title: "Desenvolvimento de Infraestrutura", partner4_text: "Faça parceria com a LEA para desenvolver e melhorar a infraestrutura de aviação, incluindo instalações de manutenção, FBOs e hubs de conectividade regional.",
+            benefits_title: "Por que fazer parceria com a LEA",
+            benefit_list1: "Acesso a mais de 100 aeronaves em diversas categorias operacionais",
+            benefit_list2: "Mais de 30 anos de experiência combinada em liderança na aviação",
+            benefit_list3: "Profunda experiência regional no mercado da SADC",
+            benefit_list4: "Compromisso com a segurança e excelência regulatória",
+            benefit_list5: "Modelos de parceria flexíveis adaptados às suas necessidades",
+            benefit_list6: "Histórico comprovado de colaborações bem-sucedidas",
+            cta_title: "Pronto para fazer parceria conosco?", cta_text: "Vamos discutir como podemos trabalhar juntos para elevar a aviação em toda a África Austral.", cta_button: "Iniciar uma conversa de parceria",
+            
+            contact_hero_badge: "Entre em Contato", contact_hero_title: "Vamos iniciar uma conversa.",
+            contact_hero_tagline: "Entre em contato com nossa equipe para perguntas, parcerias ou solicitações de voo.",
+            contact_hero_desc: "Estamos aqui para responder suas perguntas e fornecer as soluções de aviação premium que você precisa.",
+            contact_btn_home: "Voltar ao Início", contact_btn_services: "Explorar Serviços",
+            contact_info_title: "Informações de Contato", contact_email_label: "Email", contact_email: "info.legacyexecution@gmail.com",
+            contact_phone_label: "Telefone", contact_phone: "+244 922 824 783 / +33 6 50 13 29 00", contact_address_label: "Escritório", contact_address: "Angola, Luanda, Namíbia, Windhoek, França, Paris",
+            contact_hours_label: "Horário Comercial", contact_hours: "24/7 - Sempre disponível para suas necessidades de aviação",
+            contact_form_title: "Envie uma Mensagem", contact_send: "Enviar Mensagem",
+            
+            footer_tagline: "Legacy Executive Aviation<br>Elevando a África Austral",
+            footer_home: "Início", footer_knowus: "Conheça-nos", footer_mvv: "Missão, Visão e Valores",
+            footer_services: "Serviços", footer_whylea: "Por que a LEA", footer_partnerships: "Parcerias", footer_contact: "Contato",
+            footer_email: "info.legacyexecution@gmail.com", footer_phone: "+244 922 824 783 / +33 6 50 13 29 00", footer_address: "Angola, Luanda, Namíbia, Windhoek, França, Paris",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy está no ar\" — Todos os direitos reservados"
+        },
+        fr: {
+            hero_badge: "Mobilité aérienne premium", hero_title: "Legacy Executive Aviation", hero_tagline: "\"Legacy est dans l'air\"",
+            hero_desc: "Transformer l'accès à l'aviation en Afrique australe avec des solutions de mobilité aérienne sûres, efficaces et premium.",
+            btn_request: "Demander un vol", btn_partner: "Partenaires", btn_contact: "Contactez-nous",
+            about_title: "À propos de Legacy", about_text: "Legacy Executive Aviation redéfinit la mobilité aérienne dans la région SADC en fournissant un accès transparent aux services d'aviation privée, d'affaires et commerciale. Avec accès à plus de 100 aéronefs et une équipe de direction hautement expérimentée, LEA offre une fiabilité et une excellence opérationnelle inégalées. Siège social en Angola, avec des bases opérationnelles en Namibie, Zambie et RDC.",
+            whychoose_title: "Pourquoi choisir LEA", stat_aircraft: "100+", stat_aircraft_label: "Aéronefs",
+            stat_years: "30+ Ans", stat_years_label: "Expérience", stat_hours: "15 000+", stat_hours_label: "Heures de vol",
+            stat_region: "SADC", stat_region_label: "Couverture régionale", services_title: "Services Premium",
+            service1_title: "Charter privé", service1_desc: "Vols de luxe sur mesure", service2_title: "Aviation d'affaires", service2_desc: "Voyages d'affaires et VIP",
+            service3_title: "Aviation commerciale", service3_desc: "Solutions et fret", service4_title: "Logistique de mobilité", service4_desc: "Chaîne d'approvisionnement efficace",
+            explore_link: "Explorez nos services", gallery_title: "Flotte et Moments", gallery_subtitle: "Découvrez l'excellence à travers notre vitrine dynamique", caption_default: "Flotte premium à votre service",
+            
+            about_hero_badge: "Mobilité aérienne premium", about_hero_title: "À propos de Legacy Executive Aviation", about_hero_tagline: "Une vision audacieuse pour l'aviation en Afrique australe",
+            about_hero_desc: "Legacy Executive Aviation est stratégiquement positionnée pour transformer l'aviation dans la région SADC en fournissant des solutions de mobilité aérienne sûres, efficaces et premium. Siège social en Angola. Bases opérationnelles en Namibie, Zambie et RDC.",
+            about_btn_home: "Retour à l'accueil", about_btn_learn: "En savoir plus",
+            who_title: "Qui nous sommes", who_text: "Legacy Executive Aviation est stratégiquement positionnée pour transformer l'aviation dans la région SADC. Nous existons pour combler le fossé d'accessibilité à l'aviation en Afrique australe en fournissant des solutions de mobilité aérienne sûres, efficaces et premium. Notre siège social est en Angola, avec des bases opérationnelles en Namibie, Zambie et RDC.",
+            strength_title: "Notre force", strength_text: "Avec un accès immédiat à plus de 100 aéronefs et une équipe de direction composée de professionnels de l'aviation avec plus de 30 ans d'expérience — y compris des pilotes dépassant 15 000 heures de vol — notre capacité opérationnelle et notre expertise technique nous distinguent sur le marché régional.",
+            impact_title: "Impact régional", impact_text: "Nous nous engageons à élever le niveau de l'aviation en Afrique australe grâce à des services évolutifs, des opérations de vol fiables et une expérience centrée sur le client conçue pour les voyageurs d'affaires et cadres.",
+            
+            mission_hero_badge: "Mission, Vision et Valeurs", mission_hero_title: "Piloter le leadership aéronautique à travers l'Afrique australe",
+            mission_hero_tagline: "Engagés envers la sécurité, l'excellence, l'intégrité, l'innovation et les partenariats.",
+            mission_hero_desc: "Notre objectif est de fournir des services aéronautiques fiables et de classe mondiale qui répondent aux besoins de mobilité évolutifs des entreprises, des gouvernements, des investisseurs et des communautés de la région SADC.",
+            mission_btn_home: "Retour à l'accueil", mission_btn_values: "Découvrez nos valeurs",
+            mission_title: "Mission", mission_text: "Fournir des services aéronautiques fiables et de classe mondiale qui répondent directement aux besoins de mobilité évolutifs des entreprises, des gouvernements, des investisseurs et des communautés de la région SADC.",
+            vision_title: "Vision", vision_text: "Devenir le fournisseur de solutions aéronautiques de référence en Afrique australe, reconnu pour la sécurité, l'excellence opérationnelle et la connectivité stratégique à travers le continent.",
+            values_title: "Valeurs fondamentales",
+            value_safety_title: "Sécurité", value_safety_text: "Normes opérationnelles sans compromis qui privilégient le bien-être de chaque passager et membre d'équipage.",
+            value_excellence_title: "Excellence", value_excellence_text: "Prestation de services premium à chaque point de contact, garantissant une expérience fluide et mémorable.",
+            value_integrity_title: "Intégrité", value_integrity_text: "Transparence, responsabilité et professionnalisme dans toutes nos relations d'affaires.",
+            value_innovation_title: "Innovation", value_innovation_text: "Solutions adaptatives qui exploitent une technologie de pointe pour une région en croissance.",
+            value_partnership_title: "Partenariat", value_partnership_text: "Collaboration à long terme avec les parties prenantes pour construire des écosystèmes aéronautiques durables.",
+            
+            services_hero_badge: "Nos Services", services_hero_title: "Services d'aviation premium pour chaque mission.",
+            services_hero_tagline: "Voyages de luxe, mobilité exécutive, support commercial et solutions de fret dans la région SADC.",
+            services_hero_desc: "Legacy Executive Aviation propose un portefeuille aéronautique intégré pour répondre aux besoins des particuliers, des entreprises, des gouvernements et des grands opérateurs.",
+            services_btn_home: "Accueil", services_btn_whylea: "Pourquoi choisir LEA",
+            services_list_title: "Ce Que Nous Offrons",
+            service1_title_full: "Aviation Privée", service1_desc_full: "Voyages luxueux, flexibles et discrets adaptés aux clients individuels et fortunés. Profitez d'un confort inégalé et d'un service personnalisé à chaque vol.",
+            service2_title_full: "Aviation Exécutive", service2_desc_full: "Solutions de mobilité aérienne efficaces pour les dirigeants d'entreprise et les organisations corporatives. Optimisez la productivité avec des déplacements rapides et fluides.",
+            service3_title_full: "Solutions d'Aviation Commerciale", service3_desc_full: "Support stratégique pour les compagnies aériennes, les gouvernements et les opérations de voyage à grande échelle. Solutions complètes incluant wet leasing, ACMI et support opérationnel.",
+            service4_title_full: "Mobilité Aérienne et Logistique", service4_desc_full: "Transport de fret, réponse aux urgences et logistique aérienne spécialisée dans la région. Solutions fiables de chaîne d'approvisionnement pour les livraisons sensibles.",
+            
+            why_hero_badge: "Pourquoi choisir LEA", why_hero_title: "Leadership aéronautique éprouvé pour l'Afrique australe.",
+            why_hero_tagline: "Un partenaire de confiance engagé pour la sécurité, l'expertise et un service sur mesure.",
+            why_hero_desc: "Legacy Executive Aviation combine une expérience régionale approfondie, un vaste réseau d'avions et des normes mondiales pour servir les entreprises, les gouvernements et les communautés.",
+            why_btn_home: "Retour à l'accueil", why_btn_services: "Explorer les services",
+            why_section_title: "L'avantage Legacy",
+            benefit1_title: "Réseau d'aéronefs étendu", benefit1_text: "Accédez à une flotte bien entretenue capable de servir des missions privées, exécutives, commerciales et de fret dans la région.",
+            benefit2_title: "Professionnels de l'aviation expérimentés", benefit2_text: "Direction et équipages ayant fait leurs preuves, connaissances opérationnelles approfondies et un focus inébranlable sur la qualité.",
+            benefit3_title: "Expertise régionale dans la SADC", benefit3_text: "Compréhension du marché local et solutions de mobilité aérienne conçues spécifiquement pour les routes et la réglementation de l'Afrique australe.",
+            benefit4_title: "Engagement envers la sécurité et l'excellence", benefit4_text: "Chaque vol et opération respecte les normes les plus élevées de sécurité, de conformité et de prestation de service premium.",
+            benefit5_title: "Solutions d'aviation sur mesure", benefit5_text: "Plans de mobilité personnalisés répondant aux besoins uniques des clients, des projets et des partenaires stratégiques.",
+            
+            partnerships_hero_badge: "Travaillez Avec Nous", partnerships_hero_title: "Élargissez l'accès à l'aviation à travers l'Afrique australe.",
+            partnerships_hero_tagline: "Nous collaborons avec les gouvernements, les entreprises, les investisseurs et les parties prenantes de l'aviation pour améliorer la connectivité et la prestation de services dans toute la région.",
+            partnerships_hero_desc: "Legacy Executive Aviation offre des opportunités de partenariat stratégique qui soutiennent la croissance durable, le développement des infrastructures et des réseaux aériens plus solides.",
+            partnerships_btn_home: "Retour à l'accueil", partnerships_btn_contact: "Contactez-nous",
+            partnerships_title: "Opportunités de Partenariat",
+            partner1_title: "Soutien Gouvernemental à l'Aviation", partner1_text: "Partenariats stratégiques avec des entités gouvernementales pour améliorer les infrastructures aéronautiques nationales, la réponse aux urgences et les solutions de mobilité du secteur public.",
+            partner2_title: "Programmes de Voyages d'Affaires", partner2_text: "Solutions aéronautiques sur mesure pour les entreprises recherchant des arrangements de voyage efficaces, fiables et premium pour les cadres et le personnel dans toute la région.",
+            partner3_title: "Collaborations d'Investissement", partner3_text: "Rejoignez-nous pour élargir l'accessibilité de l'aviation grâce à des investissements stratégiques qui stimulent la croissance, l'innovation et l'excellence opérationnelle.",
+            partner4_title: "Développement d'Infrastructure", partner4_text: "Partenariat avec LEA pour développer et améliorer les infrastructures aéronautiques, y compris les installations de maintenance, les FBO et les hubs de connectivité régionaux.",
+            benefits_title: "Pourquoi s'associer à LEA",
+            benefit_list1: "Accès à plus de 100 aéronefs dans diverses catégories opérationnelles",
+            benefit_list2: "Plus de 30 ans d'expérience combinée en leadership aéronautique",
+            benefit_list3: "Expertise régionale approfondie sur le marché de la SADC",
+            benefit_list4: "Engagement envers la sécurité et l'excellence réglementaire",
+            benefit_list5: "Modèles de partenariat flexibles adaptés à vos besoins",
+            benefit_list6: "Antécédents prouvés de collaborations réussies",
+            cta_title: "Prêt à vous associer à nous?", cta_text: "Discutons de la façon dont nous pouvons travailler ensemble pour élever l'aviation en Afrique australe.", cta_button: "Commencer une conversation de partenariat",
+            
+            contact_hero_badge: "Entrez en Contact", contact_hero_title: "Commençons une conversation.",
+            contact_hero_tagline: "Contactez notre équipe pour des demandes de renseignements, des partenariats ou des demandes de vol.",
+            contact_hero_desc: "Nous sommes là pour répondre à vos questions et fournir les solutions d'aviation premium dont vous avez besoin.",
+            contact_btn_home: "Retour à l'accueil", contact_btn_services: "Explorer les services",
+            contact_info_title: "Coordonnées", contact_email_label: "Email", contact_email: "info.legacyexecution@gmail.com",
+            contact_phone_label: "Téléphone", contact_phone: "+244 922 824 783 / +33 6 50 13 29 00", contact_address_label: "Bureau", contact_address: "Angola, Luanda, Namibie, Windhoek, France, Paris",
+            contact_hours_label: "Heures d'Ouverture", contact_hours: "24/7 - Toujours disponible pour vos besoins aéronautiques",
+            contact_form_title: "Envoyer un Message", contact_send: "Envoyer le Message",
+            
+            footer_tagline: "Legacy Executive Aviation<br>Élever l'Afrique australe",
+            footer_home: "Accueil", footer_knowus: "Qui sommes-nous", footer_mvv: "Mission, Vision et Valeurs",
+            footer_services: "Services", footer_whylea: "Pourquoi LEA", footer_partnerships: "Partenariats", footer_contact: "Contact",
+            footer_email: "info.legacyexecution@gmail.com", footer_phone: "+244 922 824 783 / +33 6 50 13 29 00", footer_address: "Angola, Luanda, Namibie, Windhoek, France, Paris",
+            footer_copyright: "2026 Legacy Executive Aviation — \"Legacy est dans l'air\" — Tous droits réservés"
+        }
+    };
+
+    function applyLanguage(lang) {
+        if (!translations[lang]) lang = 'en';
+        document.querySelectorAll('[data-key]').forEach(el => {
+            const key = el.getAttribute('data-key');
+            if (translations[lang][key] !== undefined) {
+                if (key === 'footer_tagline') el.innerHTML = translations[lang][key];
+                else el.innerText = translations[lang][key];
+            }
+        });
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.getAttribute('data-lang') === lang);
+        });
+        document.documentElement.lang = lang;
+        localStorage.setItem('preferredLanguage', lang);
+    }
+
+    function initLanguageSwitcher() {
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', () => applyLanguage(btn.getAttribute('data-lang')));
+        });
+        const savedLang = localStorage.getItem('preferredLanguage');
+        applyLanguage(savedLang && translations[savedLang] ? savedLang : 'en');
+    }
+
+    // ==================== CAROUSEL ====================
+    let currentIndex = 0;
+    const track = document.getElementById('carouselTrack');
+    const slides = track ? Array.from(document.querySelectorAll('.carousel-slide')) : [];
+    const totalSlides = slides.length;
+    let autoInterval;
+
+    function updateCarousel() {
+        if (track) track.style.transform = `translateX(-${currentIndex * 100}%)`;
+        document.querySelectorAll('.dot').forEach((dot, idx) => {
+            dot.classList.toggle('active-dot', idx === currentIndex);
+        });
+        const captions = ["<i class='fas fa-fan'></i> <span data-key='cap1'>Legacy jet ready for takeoff</span>", "<i class='fas fa-champagne-glasses'></i> <span data-key='cap2'>Executive cabin luxury</span>", "<i class='fas fa-globe-africa'></i> <span data-key='cap3'>Regional connectivity at its best</span>", "<i class='fas fa-map-marked-alt'></i> <span data-key='cap4'>SADC coverage & beyond</span>", "<i class='fas fa-chart-line'></i> <span data-key='cap5'>Excellence in air mobility</span>"];
+        const captionEl = document.getElementById('carouselCaption');
+        if (captionEl && captions[currentIndex]) captionEl.innerHTML = captions[currentIndex];
+    }
+
+    function nextSlide() { if (slides.length) { currentIndex = (currentIndex + 1) % totalSlides; updateCarousel(); resetAutoSlide(); } }
+    function prevSlide() { if (slides.length) { currentIndex = (currentIndex - 1 + totalSlides) % totalSlides; updateCarousel(); resetAutoSlide(); } }
+    function resetAutoSlide() { clearInterval(autoInterval); autoInterval = setInterval(nextSlide, 5000); }
+
+    if (track && slides.length) {
+        const dotContainer = document.getElementById('dotContainer');
+        if (dotContainer) {
+            slides.forEach((_, i) => {
+                const dot = document.createElement('span');
+                dot.classList.add('dot');
+                if (i === 0) dot.classList.add('active-dot');
+                dot.addEventListener('click', () => { currentIndex = i; updateCarousel(); resetAutoSlide(); });
+                dotContainer.appendChild(dot);
+            });
+        }
+        document.getElementById('prevBtn')?.addEventListener('click', prevSlide);
+        document.getElementById('nextBtn')?.addEventListener('click', nextSlide);
+        autoInterval = setInterval(nextSlide, 5000);
+        const carouselContainer = document.querySelector('.carousel-container');
+        if (carouselContainer) {
+            carouselContainer.addEventListener('mouseenter', () => clearInterval(autoInterval));
+            carouselContainer.addEventListener('mouseleave', () => { autoInterval = setInterval(nextSlide, 5000); });
+        }
+    }
+
+    // ==================== INITIAL LOAD ====================
+    window.addEventListener('load', () => {
+        hideLoader();
+        initLanguageSwitcher();
+        
+        const lastPage = localStorage.getItem('currentPage');
+        if (lastPage && document.getElementById(lastPage)) {
+            document.querySelectorAll('.page-section').forEach(section => {
+                section.classList.remove('active-page');
+            });
+            document.getElementById(lastPage).classList.add('active-page');
+        } else {
+            showPage('home');
+        }
+        
+        // Fade-in observer
+        const fadeElements = document.querySelectorAll('.fade-up');
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('revealed'); });
+        }, { threshold: 0.12 });
+        fadeElements.forEach(el => observer.observe(el));
+        
+        // Contact form handler
+        document.getElementById('contactForm')?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            alert('Thank you for your message! We will get back to you soon.');
+            e.target.reset();
+        });
+    });
+
+    // ==================== MOBILE MENU ====================
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileNav = document.getElementById('mobileNav');
+    if (mobileMenuBtn && mobileNav) {
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileNav.classList.toggle('active');
+            const icon = mobileMenuBtn.querySelector('i');
+            icon.classList.toggle('fa-bars');
+            icon.classList.toggle('fa-times');
+        });
+        
+        document.querySelectorAll('.mobile-nav-item').forEach(item => {
+            const header = item.querySelector('.mobile-nav-header');
+            header?.addEventListener('click', () => {
+                item.classList.toggle('open');
+            });
+        });
+    }
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && mobileNav?.classList.contains('active')) {
+            mobileNav.classList.remove('active');
+            const icon = mobileMenuBtn?.querySelector('i');
+            if (icon) {
+                icon.classList.remove('fa-times');
+                icon.classList.add('fa-bars');
+            }
+        }
+    });
+</script>
+</body>
+</html>
